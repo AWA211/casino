@@ -3,101 +3,92 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ROYAL CRYPTO CASINO — 185+ Slots & Live Games</title>
+    <title>ROYAL VORTEX — 185+ Slots, Roulette & Blackjack</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         :root {
             --bg-main: #07080f;
-            --bg-sec: #0e101d;
-            --bg-card: #15182b;
-            --bg-glass: rgba(21, 24, 43, 0.88);
+            --bg-card: #141728;
+            --bg-panel: #1b1f36;
             --accent: #f5b041;
-            --accent-2: #00e676;
-            --neon-purple: #9b59b6;
-            --neon-blue: #00d2ff;
-            --danger: #ff4757;
+            --green: #00e676;
+            --red: #ff4757;
+            --purple: #9b59b6;
+            --blue: #00d2ff;
             --text: #ffffff;
-            --text-muted: #8b92b2;
-            --border: rgba(255, 255, 255, 0.08);
+            --muted: #8b92b2;
+            --border: rgba(255, 255, 255, 0.09);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
             -webkit-tap-highlight-color: transparent;
             user-select: none;
         }
 
         body {
             background-color: var(--bg-main);
-            background-image: radial-gradient(circle at 50% 0%, #1a153a 0%, #07080f 65%);
+            background-image: radial-gradient(circle at 50% 0%, #1c1638 0%, #07080f 70%);
             color: var(--text);
-            padding-bottom: 85px;
-            overflow-x: hidden;
+            padding-bottom: 90px;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Верхняя лента заносов (Live Wins Ticker) */
-        .live-ticker {
-            background: #05060b;
+        /* Лента выигрышей */
+        .ticker-wrap {
+            background: #04050a;
             border-bottom: 1px solid var(--border);
             padding: 6px 12px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             overflow: hidden;
             font-size: 11px;
         }
-
         .live-dot {
             width: 7px;
             height: 7px;
-            background: var(--accent-2);
+            background: var(--green);
             border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-2);
+            box-shadow: 0 0 8px var(--green);
             flex-shrink: 0;
         }
-
-        .ticker-track {
+        .ticker-move {
             display: flex;
-            gap: 18px;
+            gap: 20px;
             white-space: nowrap;
-            animation: tickerMove 28s linear infinite;
+            animation: tickerAnim 25s linear infinite;
         }
-
-        @keyframes tickerMove {
+        @keyframes tickerAnim {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
-
-        .ticker-item span {
-            color: var(--accent-2);
-            font-weight: 700;
-        }
+        .ticker-item b { color: var(--green); }
 
         /* Шапка */
         header {
             position: sticky;
             top: 0;
             z-index: 100;
-            background: rgba(11, 13, 24, 0.92);
-            backdrop-filter: blur(16px);
-            padding: 12px 16px;
+            background: rgba(10, 12, 22, 0.94);
+            backdrop-filter: blur(14px);
+            padding: 11px 14px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
         }
-
         .brand {
             display: flex;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
         }
-
-        .brand-icon {
+        .brand-logo {
             width: 32px;
             height: 32px;
             border-radius: 9px;
@@ -106,35 +97,28 @@
             align-items: center;
             justify-content: center;
             font-size: 18px;
-            box-shadow: 0 0 15px rgba(245, 176, 65, 0.4);
         }
-
-        .logo-text {
-            font-size: 17px;
+        .brand-name {
+            font-size: 16px;
             font-weight: 900;
-            letter-spacing: 0.6px;
             background: linear-gradient(90deg, #fff, #f5b041);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-
-        .balance-pill {
+        .balance-box {
             display: flex;
             align-items: center;
-            background: #0c0e1a;
-            border: 1px solid rgba(245, 176, 65, 0.35);
+            background: #0b0d18;
+            border: 1px solid rgba(245, 176, 65, 0.4);
             border-radius: 12px;
-            padding: 4px 5px 4px 12px;
-            gap: 10px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+            padding: 4px 5px 4px 11px;
+            gap: 8px;
         }
-
         .balance-val {
             font-weight: 800;
-            font-size: 14px;
+            font-size: 13px;
             color: var(--accent);
         }
-
         .btn-plus {
             background: linear-gradient(135deg, #00e676, #00b862);
             color: #000;
@@ -145,315 +129,247 @@
             font-size: 18px;
             font-weight: 900;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 10px rgba(0, 230, 118, 0.35);
         }
 
         .container {
-            padding: 14px;
+            padding: 12px;
             max-width: 640px;
             margin: 0 auto;
         }
 
-        /* Вкладки секций */
-        .view-section {
-            display: none;
-        }
-        .view-section.active {
-            display: block;
-            animation: fadeIn 0.2s ease;
-        }
+        .view-page { display: none; }
+        .view-page.active { display: block; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(4px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Промо-карусель баннеров */
-        .hero-grid {
+        /* Баннеры быстрого входа */
+        .hero-row {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
         }
-
-        .hero-card {
-            border-radius: 16px;
-            padding: 14px;
+        .hero-banner {
+            border-radius: 15px;
+            padding: 13px;
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.12);
-            min-height: 112px;
+            border: 1px solid rgba(255,255,255,0.14);
+            min-height: 104px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
         }
-
-        .hero-card.lebandit {
-            background: linear-gradient(135deg, #4b2c20 0%, #c0392b 50%, #f39c12 100%);
-        }
-
-        .hero-card.fith {
-            background: linear-gradient(135deg, #1e272e 0%, #d35400 55%, #f1c40f 100%);
-        }
-
-        .hero-tag {
+        .hero-banner:active { transform: scale(0.97); }
+        .hb-1 { background: linear-gradient(135deg, #5f27cd, #e67e22); }
+        .hb-2 { background: linear-gradient(135deg, #c0392b, #f39c12); }
+        .hb-badge {
             font-size: 9px;
-            font-weight: 800;
-            text-transform: uppercase;
-            background: rgba(0,0,0,0.55);
-            padding: 3px 7px;
-            border-radius: 6px;
-            width: fit-content;
+            font-weight: 900;
+            background: rgba(0,0,0,0.6);
             color: #ffdd59;
+            padding: 3px 7px;
+            border-radius: 5px;
+            width: fit-content;
+            text-transform: uppercase;
         }
-
-        .hero-title {
-            font-size: 15px;
+        .hb-title {
+            font-size: 14px;
             font-weight: 900;
             line-height: 1.15;
             margin-top: 6px;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.6);
+            text-shadow: 0 2px 5px rgba(0,0,0,0.6);
         }
-
-        .hero-sub {
-            font-size: 11px;
-            opacity: 0.9;
-            margin-top: 2px;
-        }
-
-        .hero-art {
+        .hb-sub { font-size: 10px; opacity: 0.9; }
+        .hb-ico {
             position: absolute;
-            right: -6px;
-            bottom: -8px;
-            font-size: 52px;
+            right: -4px;
+            bottom: -6px;
+            font-size: 46px;
             opacity: 0.35;
-            transform: rotate(-12deg);
             pointer-events: none;
         }
 
-        /* Быстрые кнопки провайдеров */
-        .provider-bar {
+        /* Фильтр провайдеров */
+        .prov-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 8px;
-            margin-bottom: 12px;
+            gap: 7px;
+            margin-bottom: 10px;
         }
-
         .prov-btn {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            color: var(--text-muted);
-            padding: 10px 6px;
-            border-radius: 12px;
+            color: var(--muted);
+            padding: 9px 4px;
+            border-radius: 11px;
             font-size: 11px;
-            font-weight: 700;
-            text-align: center;
+            font-weight: 800;
             cursor: pointer;
-            transition: all 0.15s;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
         }
-
-        .prov-btn span.p-icon {
-            font-size: 16px;
-        }
-
         .prov-btn.active {
-            background: linear-gradient(180deg, rgba(245,176,65,0.2), rgba(245,176,65,0.05));
+            background: rgba(245, 176, 65, 0.16);
             border-color: var(--accent);
             color: #fff;
-            box-shadow: 0 4px 12px rgba(245,176,65,0.18);
         }
 
         /* Поиск и категории */
-        .sticky-controls {
+        .search-sticky {
             position: sticky;
-            top: 57px;
-            z-index: 90;
-            background: rgba(7, 8, 15, 0.94);
+            top: 55px;
+            z-index: 85;
+            background: rgba(7, 8, 15, 0.95);
             backdrop-filter: blur(10px);
-            padding: 8px 0;
+            padding: 7px 0;
         }
-
-        .search-row {
+        .search-bar {
             display: flex;
-            gap: 8px;
-            margin-bottom: 10px;
+            gap: 7px;
+            margin-bottom: 8px;
         }
-
-        .search-box {
+        .search-input-wrap {
             position: relative;
             flex: 1;
         }
-
-        .search-box input {
+        .search-input-wrap input {
             width: 100%;
             background: var(--bg-card);
-            border: 1px solid var(--border);
+            border: 1px solid rgba(255,255,255,0.14);
             color: #fff;
-            padding: 11px 34px 11px 36px;
-            border-radius: 12px;
+            padding: 11px 32px 11px 34px;
+            border-radius: 11px;
             font-size: 13px;
             outline: none;
+            user-select: text;
         }
-
-        .search-box input:focus {
-            border-color: var(--accent);
-        }
-
-        .search-ico {
+        .search-input-wrap input:focus { border-color: var(--accent); }
+        .s-icon {
             position: absolute;
-            left: 12px;
+            left: 11px;
             top: 50%;
             transform: translateY(-50%);
             font-size: 14px;
-            color: var(--text-muted);
         }
-
-        .clear-btn {
+        .s-clear {
             position: absolute;
-            right: 10px;
+            right: 8px;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.2);
             color: #fff;
             border: none;
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            display: none;
-            align-items: center;
-            justify-content: center;
+            font-size: 13px;
             cursor: pointer;
+            display: none;
         }
-
-        .btn-dice {
+        .btn-random {
             background: linear-gradient(135deg, #8e44ad, #5f27cd);
             border: none;
             color: #fff;
-            padding: 0 14px;
-            border-radius: 12px;
+            padding: 0 13px;
+            border-radius: 11px;
             font-size: 18px;
             cursor: pointer;
         }
 
-        .cat-scroll {
+        .cat-row {
             display: flex;
-            gap: 7px;
+            gap: 6px;
             overflow-x: auto;
             padding-bottom: 4px;
             scrollbar-width: none;
         }
-        .cat-scroll::-webkit-scrollbar { display: none; }
-
-        .cat-pill {
+        .cat-row::-webkit-scrollbar { display: none; }
+        .cat-btn {
             background: var(--bg-card);
             border: 1px solid var(--border);
-            color: var(--text-muted);
+            color: var(--muted);
             padding: 7px 12px;
-            border-radius: 20px;
-            font-size: 12px;
+            border-radius: 18px;
+            font-size: 11px;
             font-weight: 700;
             white-space: nowrap;
             cursor: pointer;
         }
-
-        .cat-pill.active {
+        .cat-btn.active {
             background: var(--accent);
             color: #000;
             border-color: var(--accent);
-        }
-
-        .catalog-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 10px 0;
-        }
-
-        .catalog-title {
-            font-size: 15px;
             font-weight: 800;
         }
 
-        .catalog-count {
+        .status-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 8px 0 10px;
+            font-size: 13px;
+            font-weight: 800;
+        }
+        .count-badge {
             font-size: 11px;
-            color: var(--text-muted);
+            color: var(--muted);
             background: var(--bg-card);
-            padding: 4px 9px;
-            border-radius: 8px;
+            padding: 4px 8px;
+            border-radius: 7px;
         }
 
-        /* СЕТКА СЛОТОВ С ГРАФИЧЕСКИМИ ПОСТЕРАМИ */
+        /* Карточки слотов с графическими постерами */
         .slots-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            gap: 11px;
         }
-
         .slot-card {
             background: var(--bg-card);
-            border-radius: 16px;
+            border-radius: 15px;
             overflow: hidden;
-            border: 1px solid rgba(255,255,255,0.08);
+            border: 1px solid var(--border);
             cursor: pointer;
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-            position: relative;
+            transition: transform 0.12s;
         }
+        .slot-card:active { transform: scale(0.96); }
 
-        .slot-card:active {
-            transform: scale(0.96);
-        }
-
-        /* Красивое превью-постер слота */
         .slot-poster {
-            height: 138px;
-            position: relative;
-            overflow: hidden;
+            height: 132px;
+            padding: 8px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 8px;
+            position: relative;
+            overflow: hidden;
         }
-
-        /* Декоративная сетка и свечение внутри постера */
-        .poster-pattern {
+        .poster-glow {
             position: absolute;
             inset: 0;
-            background-image:
-                radial-gradient(circle at 50% 32%, rgba(255,255,255,0.28) 0%, transparent 60%),
-                repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0px, rgba(255,255,255,0.03) 2px, transparent 2px, transparent 8px);
+            background: radial-gradient(circle at 50% 35%, rgba(255,255,255,0.26), transparent 62%);
             pointer-events: none;
         }
-
         .poster-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 2;
         }
-
-        .prov-tag {
+        .p-tag {
             font-size: 9px;
             font-weight: 900;
+            padding: 3px 6px;
+            border-radius: 5px;
             text-transform: uppercase;
-            padding: 3px 7px;
-            border-radius: 6px;
-            letter-spacing: 0.4px;
-            backdrop-filter: blur(6px);
         }
-        .prov-pragmatic { background: rgba(245, 176, 65, 0.9); color: #000; }
-        .prov-hacksaw { background: rgba(0, 230, 118, 0.9); color: #000; }
-        .prov-nolimit { background: rgba(255, 71, 87, 0.95); color: #fff; }
+        .p-hacksaw { background: #00e676; color: #000; }
+        .p-nolimit { background: #ff4757; color: #fff; }
+        .p-pragmatic { background: #f5b041; color: #000; }
 
-        .fav-btn {
-            background: rgba(0,0,0,0.5);
+        .fav-ico {
+            background: rgba(0,0,0,0.55);
             border: 1px solid rgba(255,255,255,0.15);
             width: 26px;
             height: 26px;
@@ -464,151 +380,69 @@
             font-size: 12px;
             cursor: pointer;
         }
-
-        /* Центральная иллюстрация и лого-плашка на постере */
-        .poster-center {
-            z-index: 2;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            margin-top: 2px;
-        }
-
         .poster-emblem {
-            width: 54px;
-            height: 54px;
-            border-radius: 16px;
-            background: rgba(0, 0, 0, 0.35);
-            border: 1.5px solid rgba(255, 255, 255, 0.28);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.45), inset 0 0 12px rgba(255,255,255,0.15);
+            z-index: 2;
+            width: 52px;
+            height: 52px;
+            margin: 0 auto;
+            border-radius: 15px;
+            background: rgba(0,0,0,0.38);
+            border: 1.5px solid rgba(255,255,255,0.3);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 30px;
-            backdrop-filter: blur(4px);
+            font-size: 28px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.45);
         }
-
-        .poster-logo-banner {
+        .poster-title-box {
             z-index: 2;
-            background: linear-gradient(180deg, rgba(10,12,22,0.55) 0%, rgba(10,12,22,0.92) 100%);
+            background: rgba(8, 10, 18, 0.86);
             border: 1px solid rgba(255,255,255,0.14);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 5px 6px;
             text-align: center;
-            backdrop-filter: blur(6px);
         }
-
-        .poster-logo-text {
+        .poster-title {
             font-size: 11px;
             font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
             color: #fff;
-            text-shadow: 0 1px 4px rgba(0,0,0,0.9);
+            text-transform: uppercase;
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
         }
-
-        .slot-footer {
-            padding: 8px 10px;
+        .slot-bottom {
+            padding: 7px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #111324;
-            font-size: 11px;
+            font-size: 10px;
+            background: #101222;
         }
-
-        .rtp-pill {
-            color: var(--text-muted);
-            font-weight: 600;
-        }
-
-        .maxwin-pill {
-            color: var(--accent-2);
+        .max-pill {
+            color: var(--green);
             font-weight: 800;
-            background: rgba(0, 230, 118, 0.1);
+            background: rgba(0, 230, 118, 0.12);
             padding: 2px 6px;
-            border-radius: 5px;
+            border-radius: 4px;
         }
 
-        /* ================= РУЛЕТКА (ROULETTE) ================= */
-        .game-box {
+        /* ================= РУЛЕТКА ================= */
+        .panel-card {
             background: var(--bg-card);
             border: 1px solid var(--border);
             border-radius: 18px;
-            padding: 16px;
-            margin-bottom: 16px;
+            padding: 14px;
+            margin-bottom: 14px;
         }
-
-        .roulette-wheel-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 10px 0 16px;
-            position: relative;
-        }
-
-        .wheel-outer {
-            width: 190px;
-            height: 190px;
-            border-radius: 50%;
-            border: 6px solid var(--accent);
-            background: conic-gradient(
-                #00b862 0deg 9.7deg,
-                #e74c3c 9.7deg 19.4deg, #1e272e 19.4deg 29.1deg,
-                #e74c3c 29.1deg 38.9deg, #1e272e 38.9deg 48.6deg,
-                #e74c3c 48.6deg 58.3deg, #1e272e 58.3deg 68.1deg,
-                #e74c3c 68.1deg 77.8deg, #1e272e 77.8deg 87.5deg,
-                #e74c3c 87.5deg 97.2deg, #1e272e 97.2deg 107deg,
-                #e74c3c 107deg 116.7deg, #1e272e 116.7deg 126.4deg,
-                #e74c3c 126.4deg 136.2deg, #1e272e 136.2deg 145.9deg,
-                #e74c3c 145.9deg 155.6deg, #1e272e 155.6deg 165.4deg,
-                #e74c3c 165.4deg 175.1deg, #1e272e 175.1deg 184.8deg,
-                #e74c3c 184.8deg 194.5deg, #1e272e 194.5deg 204.3deg,
-                #e74c3c 204.3deg 214deg, #1e272e 214deg 223.7deg,
-                #e74c3c 223.7deg 233.5deg, #1e272e 233.5deg 243.2deg,
-                #e74c3c 243.2deg 252.9deg, #1e272e 252.9deg 262.7deg,
-                #e74c3c 262.7deg 272.4deg, #1e272e 272.4deg 282.1deg,
-                #e74c3c 282.1deg 291.8deg, #1e272e 291.8deg 301.6deg,
-                #e74c3c 301.6deg 311.3deg, #1e272e 311.3deg 321deg,
-                #e74c3c 321deg 330.8deg, #1e272e 330.8deg 340.5deg,
-                #e74c3c 340.5deg 350.2deg, #1e272e 350.2deg 360deg
-            );
-            box-shadow: 0 0 30px rgba(245, 176, 65, 0.25), inset 0 0 20px rgba(0,0,0,0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: transform 3s cubic-bezier(0.15, 0.85, 0.25, 1);
-        }
-
-        .wheel-center {
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            background: #0c0e1a;
-            border: 3px solid rgba(255,255,255,0.2);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 28px;
-            z-index: 4;
-            position: absolute;
-            top: 47px;
-        }
-
-        .roulette-history {
+        .r-hist {
             display: flex;
             gap: 6px;
             overflow-x: auto;
-            margin-bottom: 12px;
-            padding-bottom: 4px;
+            padding-bottom: 6px;
+            margin-bottom: 10px;
         }
-
-        .r-hist-ball {
+        .r-ball {
             min-width: 28px;
             height: 28px;
             border-radius: 50%;
@@ -618,867 +452,758 @@
             font-size: 11px;
             font-weight: 800;
         }
+        .c-red { background: #e74c3c; color: #fff; }
+        .c-black { background: #262c36; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
+        .c-green { background: #00b862; color: #000; }
 
-        .r-red { background: #e74c3c; color: #fff; }
-        .r-black { background: #2d3436; color: #fff; border: 1px solid rgba(255,255,255,0.2); }
-        .r-green { background: #00b862; color: #000; }
-
-        .bet-board-outside {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-            margin-bottom: 12px;
+        .wheel-box {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 6px auto 12px;
         }
-
-        .r-bet-btn {
-            background: #1d213a;
-            border: 1.5px solid rgba(255,255,255,0.1);
-            color: #fff;
-            padding: 11px 6px;
-            border-radius: 10px;
-            font-size: 12px;
-            font-weight: 800;
-            cursor: pointer;
-            text-align: center;
+        .wheel-arrow {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            color: var(--accent);
+            font-size: 20px;
+            text-shadow: 0 2px 6px #000;
         }
-
-        .r-bet-btn.selected {
-            border-color: var(--accent);
-            box-shadow: 0 0 12px rgba(245, 176, 65, 0.45);
-            transform: translateY(-1px);
+        .wheel-disc {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid var(--accent);
+            background: conic-gradient(
+                #00b862 0deg 10deg, #e74c3c 10deg 30deg, #1e272e 30deg 50deg,
+                #e74c3c 50deg 70deg, #1e272e 70deg 90deg, #e74c3c 90deg 110deg,
+                #1e272e 110deg 130deg, #e74c3c 130deg 150deg, #1e272e 150deg 170deg,
+                #e74c3c 170deg 190deg, #1e272e 190deg 210deg, #e74c3c 210deg 230deg,
+                #1e272e 230deg 250deg, #e74c3c 250deg 270deg, #1e272e 270deg 290deg,
+                #e74c3c 290deg 310deg, #1e272e 310deg 330deg, #e74c3c 330deg 350deg,
+                #1e272e 350deg 360deg
+            );
+            transition: transform 2.6s cubic-bezier(0.15, 0.85, 0.25, 1);
+            box-shadow: 0 0 25px rgba(245, 176, 65, 0.25);
         }
-
-        .numbers-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 5px;
-            margin-bottom: 14px;
-            max-height: 175px;
-            overflow-y: auto;
-            padding: 4px;
+        .wheel-hub {
+            position: absolute;
+            inset: 42px;
+            border-radius: 50%;
             background: #0b0d18;
-            border-radius: 12px;
+            border: 2px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 900;
         }
 
-        .num-cell {
-            padding: 8px 0;
-            border-radius: 7px;
-            font-size: 12px;
-            font-weight: 800;
-            text-align: center;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-        .num-cell.selected {
-            border-color: #fff;
-            box-shadow: 0 0 8px #fff;
-        }
-
-        .chips-row {
+        .chip-selector {
             display: flex;
             gap: 6px;
-            margin-bottom: 12px;
-            overflow-x: auto;
+            margin-bottom: 10px;
         }
-
-        .chip-btn {
+        .chip-item {
             flex: 1;
-            background: #1d213a;
+            background: var(--bg-panel);
             border: 1px solid var(--border);
             color: var(--accent);
-            padding: 8px;
+            padding: 8px 4px;
             border-radius: 9px;
-            font-size: 12px;
+            font-size: 11px;
             font-weight: 800;
             cursor: pointer;
-            white-space: nowrap;
+            text-align: center;
         }
-        .chip-btn.active {
+        .chip-item.active {
             background: var(--accent);
             color: #000;
         }
 
-        /* ================= БЛЭКДЖЕК 21 (BLACKJACK) ================= */
-        .bj-table {
-            background: radial-gradient(circle at 50% 30%, #144932 0%, #0a291c 80%);
-            border: 3px solid #c89d54;
-            border-radius: 20px;
-            padding: 18px 14px;
-            min-height: 310px;
+        .r-outside-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        .r-cell {
+            background: var(--bg-panel);
+            border: 1.5px solid var(--border);
+            color: #fff;
+            padding: 10px 4px;
+            border-radius: 9px;
+            font-size: 11px;
+            font-weight: 800;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
+        }
+        .r-cell.has-bet {
+            border-color: var(--accent);
+            box-shadow: 0 0 10px rgba(245, 176, 65, 0.4);
+        }
+        .bet-chip-tag {
+            position: absolute;
+            top: -6px;
+            right: -4px;
+            background: var(--accent);
+            color: #000;
+            font-size: 9px;
+            font-weight: 900;
+            padding: 1px 5px;
+            border-radius: 8px;
+        }
+
+        .r-num-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            margin-bottom: 12px;
+            background: #0a0c16;
+            padding: 6px;
+            border-radius: 11px;
+        }
+
+        /* ================= БЛЭКДЖЕК ================= */
+        .bj-felt {
+            background: radial-gradient(circle at 50% 30%, #165238 0%, #0a291c 85%);
+            border: 3px solid #d4af37;
+            border-radius: 18px;
+            padding: 16px 12px;
+            min-height: 290px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            box-shadow: inset 0 0 35px rgba(0,0,0,0.7);
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
-
-        .bj-hand-Zone {
-            text-align: center;
-        }
-
-        .bj-label {
-            font-size: 12px;
-            font-weight: 700;
-            color: rgba(255,255,255,0.8);
-            margin-bottom: 8px;
+        .bj-row { text-align: center; }
+        .bj-badge {
             display: inline-block;
-            background: rgba(0,0,0,0.45);
+            background: rgba(0,0,0,0.5);
             padding: 4px 12px;
-            border-radius: 12px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            margin-bottom: 8px;
         }
-
-        .bj-cards {
+        .cards-wrap {
             display: flex;
             justify-content: center;
             gap: 8px;
-            min-height: 86px;
+            min-height: 82px;
             flex-wrap: wrap;
         }
-
-        .playing-card {
-            width: 58px;
-            height: 84px;
-            background: #ffffff;
-            border-radius: 8px;
+        .p-card {
+            width: 56px;
+            height: 80px;
+            background: #fff;
             color: #111;
-            padding: 6px;
+            border-radius: 8px;
+            padding: 5px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             font-weight: 900;
-            box-shadow: 0 6px 14px rgba(0,0,0,0.5);
-            animation: cardDeal 0.2s ease;
+            font-size: 13px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
         }
-
-        @keyframes cardDeal {
-            from { transform: translateY(-20px) scale(0.8); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-
-        .playing-card.red { color: #d63031; }
-        .playing-card.hidden {
-            background: repeating-linear-gradient(135deg, #c0392b, #c0392b 8px, #962d22 8px, #962d22 16px);
+        .p-card.red { color: #d63031; }
+        .p-card.back {
+            background: repeating-linear-gradient(135deg, #c0392b, #c0392b 7px, #962d22 7px, #962d22 14px);
             border: 2px solid #fff;
             color: transparent;
         }
+        .suit-big { font-size: 22px; text-align: center; }
 
-        .card-suit-center {
-            font-size: 24px;
-            text-align: center;
-        }
-
-        .bj-status {
-            text-align: center;
-            font-size: 16px;
-            font-weight: 900;
-            color: #ffdd59;
-            min-height: 24px;
-            margin: 10px 0;
-            text-shadow: 0 2px 6px rgba(0,0,0,0.8);
-        }
-
-        .bj-actions {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 8px;
-        }
-
-        .btn-action {
+        .btn-main {
+            width: 100%;
             padding: 13px;
             border: none;
-            border-radius: 12px;
-            font-weight: 800;
+            border-radius: 11px;
+            font-weight: 900;
             font-size: 14px;
-            cursor: pointer;
             text-transform: uppercase;
+            cursor: pointer;
         }
+        .btn-main:disabled { opacity: 0.4; cursor: not-allowed; }
+        .bg-gold { background: linear-gradient(90deg, #f5b041, #e67e22); color: #000; }
+        .bg-green { background: linear-gradient(90deg, #00e676, #00b862); color: #000; }
+        .bg-red { background: var(--red); color: #fff; }
+        .bg-blue { background: linear-gradient(90deg, #00d2ff, #3a7bd5); color: #fff; }
 
-        .btn-gold {
-            background: linear-gradient(90deg, #f5b041, #f39c12);
-            color: #000;
-            box-shadow: 0 4px 15px rgba(245, 176, 65, 0.35);
-        }
-
-        .btn-green {
-            background: linear-gradient(90deg, #00e676, #00b862);
-            color: #000;
-        }
-
-        .btn-red {
-            background: var(--danger);
-            color: #fff;
-        }
-
-        .btn-blue {
-            background: linear-gradient(90deg, #00d2ff, #3a7bd5);
-            color: #fff;
-        }
-
-        /* ================= МОДАЛЬНОЕ ОКНО СЛОТА (СВЫБОРОМ РЕЖИМА!) ================= */
-        .game-modal {
+        /* ================= ПОЛНОЭКРАННОЕ ОКНО СЛОТА ================= */
+        .slot-modal {
             display: none;
             position: fixed;
             inset: 0;
-            background: #05060b;
+            background: #06070d;
             z-index: 300;
             flex-direction: column;
         }
-        .game-modal.active { display: flex; }
+        .slot-modal.active { display: flex; }
 
-        .game-modal-top {
+        .sm-header {
             background: #101324;
-            padding: 10px 14px;
+            padding: 10px 12px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid var(--border);
         }
-
-        .mode-switcher {
+        .sm-tabs {
             display: flex;
-            background: #080a12;
+            background: #090b14;
             padding: 4px;
             gap: 6px;
             border-bottom: 1px solid var(--border);
         }
-
-        .mode-tab {
+        .sm-tab {
             flex: 1;
             padding: 8px;
             border-radius: 8px;
             border: none;
             background: transparent;
-            color: var(--text-muted);
-            font-size: 12px;
+            color: var(--muted);
+            font-size: 11px;
             font-weight: 800;
             cursor: pointer;
         }
-        .mode-tab.active {
+        .sm-tab.active {
             background: var(--accent);
             color: #000;
         }
 
-        /* Встроенный интерактивный движок слота на свой баланс */
-        .inapp-slot-engine {
+        /* Движок слота 6x5 */
+        .slot-stage {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 16px;
-            background: radial-gradient(circle at 50% 25%, #1f1b3a 0%, #07080f 85%);
+            padding: 12px;
+            background: radial-gradient(circle at 50% 25%, #231942 0%, #06070d 85%);
             overflow-y: auto;
         }
-
-        .engine-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 6px;
-            background: rgba(0, 0, 0, 0.65);
-            border: 2px solid rgba(245, 176, 65, 0.45);
-            border-radius: 16px;
-            padding: 10px;
-            margin: auto 0;
-            box-shadow: 0 0 30px rgba(0,0,0,0.8);
-        }
-
-        .engine-cell {
-            aspect-ratio: 1;
-            background: #15182b;
+        .slot-hud {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(0,0,0,0.5);
+            padding: 7px 11px;
             border-radius: 10px;
+            border: 1px solid var(--border);
+            font-size: 12px;
+        }
+        .slot-board {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 5px;
+            background: rgba(0,0,0,0.7);
+            border: 2px solid rgba(245, 176, 65, 0.5);
+            border-radius: 14px;
+            padding: 8px;
+            margin: auto 0;
+        }
+        .s-cell {
+            aspect-ratio: 1;
+            background: #15192e;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 26px;
-            border: 1px solid rgba(255,255,255,0.08);
-            transition: transform 0.15s;
+            font-size: 22px;
+            border: 1px solid rgba(255,255,255,0.07);
+            position: relative;
+            transition: transform 0.15s, background 0.15s;
         }
-
-        .engine-cell.win-cell {
-            border-color: var(--accent-2);
-            background: rgba(0, 230, 118, 0.2);
+        .s-cell.spinning {
+            transform: scale(0.88);
+            opacity: 0.65;
+        }
+        .s-cell.golden-sq {
+            background: linear-gradient(135deg, rgba(245, 176, 65, 0.45), rgba(243, 156, 18, 0.2));
+            border-color: #f5b041;
+        }
+        .s-cell.win-hit {
+            background: rgba(0, 230, 118, 0.28);
+            border-color: var(--green);
             transform: scale(1.06);
+            box-shadow: 0 0 12px rgba(0, 230, 118, 0.5);
         }
-
-        .engine-win-banner {
-            text-align: center;
-            font-size: 18px;
+        .cell-mult-tag {
+            position: absolute;
+            bottom: 1px;
+            right: 2px;
+            font-size: 9px;
             font-weight: 900;
-            color: var(--accent-2);
-            min-height: 28px;
-            margin: 10px 0;
+            background: #000;
+            color: #ffdd59;
+            padding: 0 3px;
+            border-radius: 3px;
         }
 
-        .engine-controls {
-            background: #111324;
-            border-radius: 16px;
-            padding: 12px;
+        .slot-controls-box {
+            background: #101324;
             border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 10px;
         }
 
-        /* Нижняя навигация */
+        /* Нижнее меню */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(12, 14, 26, 0.95);
-            backdrop-filter: blur(16px);
+            background: rgba(10, 12, 22, 0.96);
+            backdrop-filter: blur(14px);
             border-top: 1px solid var(--border);
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            padding: 8px 10px 14px;
-            z-index: 150;
+            padding: 8px 8px 14px;
+            z-index: 200;
         }
-
-        .nav-item {
+        .nav-btn {
             background: none;
             border: none;
-            color: var(--text-muted);
+            color: var(--muted);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
             font-size: 11px;
-            font-weight: 700;
+            font-weight: 800;
             cursor: pointer;
         }
+        .nav-btn.active { color: var(--accent); }
 
-        .nav-item span.nav-ico {
-            font-size: 20px;
-        }
-
-        .nav-item.active {
-            color: var(--accent);
-        }
-
-        /* Модалка пополнения */
-        .modal {
+        /* Модалка кассы */
+        .popup-overlay {
             display: none;
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.85);
-            z-index: 400;
+            z-index: 450;
             align-items: center;
             justify-content: center;
             padding: 16px;
         }
-        .modal.active { display: flex; }
-
-        .modal-card {
+        .popup-overlay.active { display: flex; }
+        .popup-box {
             background: var(--bg-card);
             width: 100%;
-            max-width: 360px;
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid rgba(255,255,255,0.12);
+            max-width: 350px;
+            border-radius: 18px;
+            padding: 18px;
+            border: 1px solid rgba(255,255,255,0.15);
         }
     </style>
 </head>
 <body>
 
-    <!-- Живая лента крупных выигрышей -->
-    <div class="live-ticker">
+    <!-- Живая лента заносов -->
+    <div class="ticker-wrap">
         <div class="live-dot"></div>
-        <div class="ticker-track">
-            <div class="ticker-item">🦝 Le Bandit: <span>+420 000 ₽ (x840)</span></div>
-            <div class="ticker-item">🧨 Fire in the Hole 3: <span>+1 850 000 ₽ (x3700)</span></div>
-            <div class="ticker-item">⚡ Gates of Olympus 1000: <span>+910 000 ₽ (x1820)</span></div>
-            <div class="ticker-item">🚢 Das xBoot: <span>+640 000 ₽ (x1280)</span></div>
-            <div class="ticker-item">🎡 Рулетка (Число 17): <span>+360 000 ₽ (x36)</span></div>
-            <div class="ticker-item">🦝 Le Pharaoh: <span>+530 000 ₽ (x1060)</span></div>
+        <div class="ticker-move">
+            <span class="ticker-item">🦝 Le Bandit: <b>+640 000 ₽ (x640)</b></span>
+            <span class="ticker-item">🧨 Fire in the Hole 3: <b>+2 150 000 ₽ (x2150)</b></span>
+            <span class="ticker-item">🚢 Das xBoot: <b>+890 000 ₽ (x890)</b></span>
+            <span class="ticker-item">⚡ Gates of Olympus 1000: <b>+1 400 000 ₽ (x1400)</b></span>
+            <span class="ticker-item">🎡 Рулетка (Зеро 0): <b>+360 000 ₽ (x36)</b></span>
         </div>
     </div>
 
     <!-- Шапка -->
     <header>
-        <div class="brand">
-            <div class="brand-icon">👑</div>
-            <div class="logo-text">ROYAL VORTEX</div>
+        <div class="brand" onclick="switchTab('slots')">
+            <div class="brand-logo">👑</div>
+            <div class="brand-name">ROYAL VORTEX</div>
         </div>
-        <div class="balance-pill">
-            <span class="balance-val" id="headerBalance">100 000 ₽</span>
-            <button class="btn-plus" onclick="openTopUp()">+</button>
+        <div class="balance-box">
+            <span class="balance-val" id="topBalance">150 000 ₽</span>
+            <button class="btn-plus" onclick="openCashier()">+</button>
         </div>
     </header>
 
     <div class="container">
 
-        <!-- ================= ВКЛАДКА 1: КАТАЛОГ 185+ СЛОТОВ ================= -->
-        <div id="view-slots" class="view-section active">
+        <!-- ================= ВКЛАДКА 1: КАТАЛОГ СЛОТОВ ================= -->
+        <div id="page-slots" class="view-page active">
 
-            <!-- Герой-баннеры быстрого запуска -->
-            <div class="hero-grid">
-                <div class="hero-card lebandit" onclick="launchSlotById('hk_lebandit')">
-                    <span class="hero-tag">Hacksaw Хит</span>
+            <div class="hero-row">
+                <div class="hero-banner hb-1" onclick="openSlotByIndex(0)">
+                    <span class="hb-badge">Hacksaw Хит</span>
                     <div>
-                        <div class="hero-title">LE BANDIT<br>& ВСЯ СЕРИЯ</div>
-                        <div class="hero-sub">Smokey Raccoon • до x15,000</div>
+                        <div class="hb-title">LE BANDIT<br>& ВСЯ СЕРИЯ</div>
+                        <div class="hb-sub">Золотые квадраты • x15,000</div>
                     </div>
-                    <div class="hero-art">🦝</div>
+                    <div class="hb-ico">🦝</div>
                 </div>
-                <div class="hero-card fith" onclick="launchSlotById('nl_fith3')">
-                    <span class="hero-tag">Nolimit 1/2/3</span>
+                <div class="hero-banner hb-2" onclick="openSlotByIndex(25)">
+                    <span class="hb-badge">Nolimit 1/2/3</span>
                     <div>
-                        <div class="hero-title">FIRE IN THE HOLE<br>& DAS xBOOT</div>
-                        <div class="hero-sub">xBomb • до x70,000</div>
+                        <div class="hb-title">FIRE IN THE HOLE<br>& DAS xBOOT</div>
+                        <div class="hb-sub">xBomb взрывы • x70,000</div>
                     </div>
-                    <div class="hero-art">🧨</div>
+                    <div class="hb-ico">🧨</div>
                 </div>
             </div>
 
-            <!-- Переключатель Провайдеров -->
-            <div class="provider-bar">
-                <button class="prov-btn active" onclick="setProvider('all', this)">
-                    <span class="p-icon">🌐</span>Все (185)
-                </button>
-                <button class="prov-btn" onclick="setProvider('hacksaw', this)">
-                    <span class="p-icon">🦝</span>Hacksaw
-                </button>
-                <button class="prov-btn" onclick="setProvider('nolimit', this)">
-                    <span class="p-icon">🧨</span>Nolimit
-                </button>
-                <button class="prov-btn" onclick="setProvider('pragmatic', this)">
-                    <span class="p-icon">⚡</span>Pragmatic
-                </button>
+            <!-- Выбор провайдера -->
+            <div class="prov-grid">
+                <button class="prov-btn active" id="prov-all" onclick="filterProvider('all')">🌐 Все (185)</button>
+                <button class="prov-btn" id="prov-hacksaw" onclick="filterProvider('hacksaw')">🦝 Hacksaw</button>
+                <button class="prov-btn" id="prov-nolimit" onclick="filterProvider('nolimit')">🧨 Nolimit</button>
+                <button class="prov-btn" id="prov-pragmatic" onclick="filterProvider('pragmatic')">⚡ Pragmatic</button>
             </div>
 
-            <!-- Поиск и Категории -->
-            <div class="sticky-controls">
-                <div class="search-row">
-                    <div class="search-box">
-                        <span class="search-ico">🔍</span>
-                        <input type="text" id="searchInput" placeholder="Найти Le Bandit, Fire in the Hole, Das xBoot..." oninput="handleSearch()">
-                        <button class="clear-btn" id="clearSearchBtn" onclick="clearSearch()">×</button>
+            <!-- Поиск и категории -->
+            <div class="search-sticky">
+                <div class="search-bar">
+                    <div class="search-input-wrap">
+                        <span class="s-icon">🔍</span>
+                        <input type="text" id="searchInput" placeholder="Поиск (напр: бандит, шахта, олимп, das xboot, собаки)..." oninput="onSearchInput()">
+                        <button class="s-clear" id="clearSearchBtn" onclick="resetSearch()">×</button>
                     </div>
-                    <button class="btn-dice" onclick="openRandomSlot()" title="Случайный слот">🎲</button>
+                    <button class="btn-random" onclick="openRandomSlot()" title="Случайный слот">🎲</button>
                 </div>
 
-                <div class="cat-scroll">
-                    <button class="cat-pill active" onclick="setCategory('all', this)">🔥 Все игры</button>
-                    <button class="cat-pill" onclick="setCategory('fav', this)">⭐ Избранное</button>
-                    <button class="cat-pill" onclick="setCategory('le_series', this)">🦝 Серия Le Bandit</button>
-                    <button class="cat-pill" onclick="setCategory('fith', this)">🧨 Шахты & xBoot</button>
-                    <button class="cat-pill" onclick="setCategory('hit', this)">🏆 Топ Хиты</button>
-                    <button class="cat-pill" onclick="setCategory('1000', this)">⚡ Серия 1000</button>
-                    <button class="cat-pill" onclick="setCategory('bonanza', this)">🍬 Сладости</button>
-                    <button class="cat-pill" onclick="setCategory('bass', this)">🐟 Рыбалка Bass</button>
-                    <button class="cat-pill" onclick="setCategory('hardcore', this)">💀 Хардкор</button>
-                    <button class="cat-pill" onclick="setCategory('megaways', this)">🎲 Megaways</button>
-                    <button class="cat-pill" onclick="setCategory('gods', this)">🏛 Боги и Мифы</button>
-                    <button class="cat-pill" onclick="setCategory('animals', this)">🐾 Животные</button>
+                <div class="cat-row" id="catRow">
+                    <button class="cat-btn active" data-cat="all" onclick="filterCategory('all', this)">🔥 Все слоты</button>
+                    <button class="cat-btn" data-cat="fav" onclick="filterCategory('fav', this)">⭐ Избранное</button>
+                    <button class="cat-btn" data-cat="le" onclick="filterCategory('le', this)">🦝 Серия Le Bandit</button>
+                    <button class="cat-btn" data-cat="mine" onclick="filterCategory('mine', this)">🧨 Шахты & xBoot</button>
+                    <button class="cat-btn" data-cat="hit" onclick="filterCategory('hit', this)">🏆 Топ Хиты</button>
+                    <button class="cat-btn" data-cat="1000" onclick="filterCategory('1000', this)">⚡ Серия 1000</button>
+                    <button class="cat-btn" data-cat="sweet" onclick="filterCategory('sweet', this)">🍬 Сладости</button>
+                    <button class="cat-btn" data-cat="bass" onclick="filterCategory('bass', this)">🐟 Рыбалка Bass</button>
+                    <button class="cat-btn" data-cat="hard" onclick="filterCategory('hard', this)">💀 Хардкор</button>
+                    <button class="cat-btn" data-cat="mega" onclick="filterCategory('mega', this)">🎲 Megaways</button>
+                    <button class="cat-btn" data-cat="gods" onclick="filterCategory('gods', this)">🏛 Боги</button>
+                    <button class="cat-btn" data-cat="dog" onclick="filterCategory('dog', this)">🐾 Животные</button>
                 </div>
             </div>
 
-            <div class="catalog-bar">
-                <div class="catalog-title" id="catalogTitle">Каталог слотов</div>
-                <div class="catalog-count" id="slotsCount">185 слотов</div>
+            <div class="status-line">
+                <span id="catalogHeaderTitle">Каталог слотов</span>
+                <span class="count-badge" id="slotCounter">185 игр</span>
             </div>
 
-            <div class="slots-grid" id="slotsGrid"></div>
+            <div class="slots-grid" id="slotsContainer"></div>
         </div>
 
         <!-- ================= ВКЛАДКА 2: ЕВРОПЕЙСКАЯ РУЛЕТКА ================= -->
-        <div id="view-roulette" class="view-section">
-            <div class="game-box">
+        <div id="page-roulette" class="view-page">
+            <div class="panel-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
                     <h3 style="font-size:16px;">🎡 Европейская VIP Рулетка</h3>
-                    <span style="font-size:11px; color:var(--accent-2);">Европейское Зеро (x36)</span>
+                    <span style="font-size:11px; color:var(--green);">Можно ставить на несколько полей!</span>
                 </div>
 
-                <div class="roulette-history" id="rouletteHistory">
-                    <div class="r-hist-ball r-red">7</div>
-                    <div class="r-hist-ball r-black">17</div>
-                    <div class="r-hist-ball r-green">0</div>
-                    <div class="r-hist-ball r-red">23</div>
-                    <div class="r-hist-ball r-black">8</div>
+                <div class="r-hist" id="rHistory">
+                    <div class="r-ball c-red">7</div>
+                    <div class="r-ball c-black">17</div>
+                    <div class="r-ball c-green">0</div>
+                    <div class="r-ball c-red">23</div>
+                    <div class="r-ball c-black">8</div>
                 </div>
 
-                <div class="roulette-wheel-wrap">
-                    <div class="wheel-outer" id="rouletteWheel"></div>
-                    <div class="wheel-center" id="rouletteResult">0</div>
+                <div class="wheel-box">
+                    <div class="wheel-arrow">▼</div>
+                    <div class="wheel-disc" id="rWheel"></div>
+                    <div class="wheel-hub" id="rNumber">0</div>
                 </div>
 
-                <div style="text-align:center; font-size:13px; font-weight:800; color:var(--accent); margin-bottom:10px;" id="rouletteMsg">
-                    Выберите ставку на поле ниже
+                <div id="rStatus" style="text-align:center; font-size:13px; font-weight:800; color:var(--accent); margin-bottom:10px;">
+                    Нажмите на числа или сектора ниже, чтобы поставить фишки
                 </div>
 
-                <!-- Размер фишки -->
-                <div class="chips-row">
-                    <button class="chip-btn active" onclick="setChip(500, this)">500 ₽</button>
-                    <button class="chip-btn" onclick="setChip(2500, this)">2.5K ₽</button>
-                    <button class="chip-btn" onclick="setChip(10000, this)">10K ₽</button>
-                    <button class="chip-btn" onclick="setChip(50000, this)">50K ₽</button>
-                    <button class="chip-btn" onclick="setChip(250000, this)">250K ₽</button>
+                <!-- Выбор номинала фишки -->
+                <div class="chip-selector" id="rChips">
+                    <button class="chip-item active" onclick="selectChip(500, this)">500 ₽</button>
+                    <button class="chip-item" onclick="selectChip(2500, this)">2.5K ₽</button>
+                    <button class="chip-item" onclick="selectChip(10000, this)">10K ₽</button>
+                    <button class="chip-item" onclick="selectChip(50000, this)">50K ₽</button>
+                    <button class="chip-item" onclick="selectChip(250000, this)">250K ₽</button>
                 </div>
 
-                <!-- Быстрые шансы -->
-                <div class="bet-board-outside">
-                    <button class="r-bet-btn" style="background:#c0392b;" onclick="selectRouletteBet('red', '🔴 Красное (x2)', this)">🔴 Красное x2</button>
-                    <button class="r-bet-btn" style="background:#00b862; color:#000;" onclick="selectRouletteBet('num_0', '🟢 Зеро 0 (x36)', this)">🟢 Зеро 0 (x36)</button>
-                    <button class="r-bet-btn" style="background:#1e272e;" onclick="selectRouletteBet('black', '⚫ Черное (x2)', this)">⚫ Черное x2</button>
-                    <button class="r-bet-btn" onclick="selectRouletteBet('even', 'ЧЕТНОЕ (x2)', this)">Четное x2</button>
-                    <button class="r-bet-btn" onclick="selectRouletteBet('odd', 'НЕЧЕТНОЕ (x2)', this)">Нечетное x2</button>
-                    <button class="r-bet-btn" onclick="selectRouletteBet('1_18', '1–18 (x2)', this)">1–18 (x2)</button>
-                    <button class="r-bet-btn" onclick="selectRouletteBet('doz1', '1-я Дюжина (x3)', this)">1–12 (x3)</button>
-                    <button class="r-bet-btn" onclick="selectRouletteBet('doz2', '2-я Дюжина (x3)', this)">13–24 (x3)</button>
-                    <button class="r-bet-btn" onclick="selectRouletteBet('doz3', '3-я Дюжина (x3)', this)">25–36 (x3)</button>
+                <!-- Сектора равных шансов и дюжин -->
+                <div class="r-outside-grid">
+                    <div class="r-cell" style="background:#c0392b;" data-bet="red" onclick="placeRouletteBet('red', this)">🔴 Красное x2</div>
+                    <div class="r-cell" style="background:#00b862; color:#000;" data-bet="n_0" onclick="placeRouletteBet('n_0', this)">🟢 Зеро 0 (x36)</div>
+                    <div class="r-cell" style="background:#262c36;" data-bet="black" onclick="placeRouletteBet('black', this)">⚫ Черное x2</div>
+                    <div class="r-cell" data-bet="even" onclick="placeRouletteBet('even', this)">Четное x2</div>
+                    <div class="r-cell" data-bet="odd" onclick="placeRouletteBet('odd', this)">Нечетное x2</div>
+                    <div class="r-cell" data-bet="low" onclick="placeRouletteBet('low', this)">1–18 (x2)</div>
+                    <div class="r-cell" data-bet="d1" onclick="placeRouletteBet('d1', this)">1–12 (x3)</div>
+                    <div class="r-cell" data-bet="d2" onclick="placeRouletteBet('d2', this)">13–24 (x3)</div>
+                    <div class="r-cell" data-bet="d3" onclick="placeRouletteBet('d3', this)">25–36 (x3)</div>
                 </div>
 
-                <!-- Точные числа 1-36 (x36) -->
-                <div style="font-size:11px; color:var(--text-muted); margin-bottom:6px;">Или выберите точное число (Выплата x36):</div>
-                <div class="numbers-grid" id="rouletteNumbersGrid"></div>
+                <!-- Сетка точных чисел 1-36 -->
+                <div style="font-size:11px; color:var(--muted); margin-bottom:5px;">Точные числа (Выплата x36):</div>
+                <div class="r-num-grid" id="rNumGrid"></div>
 
-                <button class="btn-action btn-gold" style="width:100%" onclick="spinRoulette()">КРУТИТЬ КОЛЕСО</button>
+                <div style="display:grid; grid-template-columns: 1fr 2fr; gap:8px;">
+                    <button class="btn-main bg-red" onclick="clearRouletteBets()">СБРОС</button>
+                    <button class="btn-main bg-gold" id="rSpinBtn" onclick="spinRouletteWheel()">КРУТИТЬ (<span id="rTotalBet">0</span> ₽)</button>
+                </div>
             </div>
         </div>
 
         <!-- ================= ВКЛАДКА 3: БЛЭКДЖЕК 21 ================= -->
-        <div id="view-blackjack" class="view-section">
-            <div class="game-box">
+        <div id="page-blackjack" class="view-page">
+            <div class="panel-card">
                 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
                     <h3 style="font-size:16px;">🃏 VIP Blackjack 21</h3>
-                    <span style="font-size:11px; color:var(--accent);">Blackjack платит 3 к 2</span>
+                    <span style="font-size:11px; color:var(--accent);">Blackjack 3:2 • Дилер стоит на 17</span>
                 </div>
 
-                <div class="bj-table">
-                    <div class="bj-hand-Zone">
-                        <div class="bj-label">Дилер: <span id="dealerScore">0</span></div>
-                        <div class="bj-cards" id="dealerCards"></div>
+                <div class="bj-felt">
+                    <div class="bj-row">
+                        <div class="bj-badge">Дилер: <span id="bjDealerPts">0</span></div>
+                        <div class="cards-wrap" id="bjDealerCards"></div>
                     </div>
 
-                    <div class="bj-status" id="bjStatus">Сделайте ставку и нажмите «Раздать»</div>
+                    <div id="bjBanner" style="text-align:center; font-size:15px; font-weight:900; color:#ffdd59; margin:8px 0;">
+                        Выберите ставку и нажмите «Раздать карты»
+                    </div>
 
-                    <div class="bj-hand-Zone">
-                        <div class="bj-cards" id="playerCards"></div>
-                        <div class="bj-label" style="margin-top:8px;">Вы: <span id="playerScore">0</span></div>
+                    <div class="bj-row">
+                        <div class="cards-wrap" id="bjPlayerCards"></div>
+                        <div class="bj-badge" style="margin-top:8px;">Вы: <span id="bjPlayerPts">0</span></div>
                     </div>
                 </div>
 
-                <!-- Ставка Блэкджека -->
-                <div class="chips-row">
-                    <button class="chip-btn active" onclick="setBjBet(1000, this)">1 000 ₽</button>
-                    <button class="chip-btn" onclick="setBjBet(5000, this)">5 000 ₽</button>
-                    <button class="chip-btn" onclick="setBjBet(25000, this)">25 000 ₽</button>
-                    <button class="chip-btn" onclick="setBjBet(100000, this)">100 000 ₽</button>
+                <!-- Выбор ставки -->
+                <div class="chip-selector" id="bjChips">
+                    <button class="chip-item active" onclick="selectBjChip(1000, this)">1 000 ₽</button>
+                    <button class="chip-item" onclick="selectBjChip(5000, this)">5 000 ₽</button>
+                    <button class="chip-item" onclick="selectBjChip(25000, this)">25 000 ₽</button>
+                    <button class="chip-item" onclick="selectBjChip(100000, this)">100 000 ₽</button>
                 </div>
 
-                <div id="bjDealBar">
-                    <button class="btn-action btn-gold" style="width:100%" onclick="startBlackjack()">РАЗДАТЬ КАРТЫ (<span id="bjBetLabel">1 000</span> ₽)</button>
+                <div id="bjDealControls">
+                    <button class="btn-main bg-gold" onclick="bjStartHand()">РАЗДАТЬ КАРТЫ (<span id="bjBetDisplay">1 000</span> ₽)</button>
                 </div>
 
-                <div class="bj-actions" id="bjPlayBar" style="display:none;">
-                    <button class="btn-action btn-green" onclick="bjHit()">ЕЩЕ (HIT)</button>
-                    <button class="btn-action btn-red" onclick="bjStand()">ХВАТИТ</button>
-                    <button class="btn-action btn-blue" id="bjDoubleBtn" onclick="bjDouble()">УДВОИТЬ x2</button>
+                <div id="bjActionControls" style="display:none; grid-template-columns:repeat(3,1fr); gap:8px;">
+                    <button class="btn-main bg-green" id="btnHit" onclick="bjHitCard()">ЕЩЕ</button>
+                    <button class="btn-main bg-red" id="btnStand" onclick="bjStandHand()">ХВАТИТ</button>
+                    <button class="btn-main bg-blue" id="btnDouble" onclick="bjDoubleDown()">УДВОИТЬ x2</button>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- ================= ОКНО ИГРЫ В СЛОТ (ДВА РЕЖИМА!) ================= -->
-    <div class="game-modal" id="slotModal">
-        <div class="game-modal-top">
+    <!-- ================= ПОЛНОЭКРАННЫЙ ЗАПУСК СЛОТА ================= -->
+    <div class="slot-modal" id="slotModal">
+        <div class="sm-header">
             <div>
-                <div id="modalSlotTitle" style="font-weight:900; font-size:14px;">Le Bandit</div>
-                <div id="modalSlotProv" style="font-size:10px; color:var(--accent);">HACKSAW GAMING • MAX x15,000</div>
+                <div id="smTitle" style="font-size:14px; font-weight:900;">Le Bandit</div>
+                <div id="smSubtitle" style="font-size:10px; color:var(--accent);">HACKSAW • MAX x10,000</div>
             </div>
-            <div style="display:flex; gap:8px; align-items:center;">
-                <span id="modalBalanceDisplay" style="font-size:13px; font-weight:800; color:var(--accent);">100 000 ₽</span>
-                <button onclick="closeSlotModal()" style="background:var(--danger); color:#fff; border:none; padding:6px 12px; border-radius:8px; font-weight:800; cursor:pointer;">✕ Выход</button>
+            <div style="display:flex; align-items:center; gap:8px;">
+                <span id="smBalance" style="font-size:13px; font-weight:800; color:var(--accent);">150 000 ₽</span>
+                <button onclick="openCashier()" class="btn-plus" style="width:24px; height:24px; font-size:15px;">+</button>
+                <button onclick="closeSlotModal()" style="background:var(--red); color:#fff; border:none; padding:6px 10px; border-radius:8px; font-weight:800; font-size:12px; cursor:pointer;">✕ Выход</button>
             </div>
         </div>
 
-        <div class="mode-switcher">
-            <button class="mode-tab active" id="tabEngine" onclick="switchSlotMode('engine')">💰 На свой баланс (+Бонуска)</button>
-            <button class="mode-tab" id="tabIframe" onclick="switchSlotMode('iframe')">🌐 Официальный Демо-сервер</button>
+        <div class="sm-tabs">
+            <button class="sm-tab active" id="tabPlayBalance" onclick="setSlotMode('balance')">🎰 Играть на свой баланс (+Бонуска)</button>
+            <button class="sm-tab" id="tabPlayDemo" onclick="setSlotMode('demo')">🌐 Официальный Демо-сервер</button>
         </div>
 
-        <!-- Режим 1: Игра на свой безлимитный баланс (с покупкой бонуски) -->
-        <div class="inapp-slot-engine" id="engineContainer">
-            <div style="display:flex; justify-content:space-between; font-size:12px; color:var(--text-muted);">
-                <span id="engineFeatureBadge">🔥 Каскадные выплаты + Множители xBomb / Rainbow</span>
-                <span id="engineMultBadge" style="color:var(--accent); font-weight:900;">Множитель: x1</span>
+        <!-- Режим 1: Универсальный движок слота на свой баланс (работает в 100% слотов!) -->
+        <div class="slot-stage" id="stageBalance">
+            <div class="slot-hud">
+                <span id="hudModeText">⚡ Обычный режим</span>
+                <span id="hudMultiText" style="color:var(--accent); font-weight:900;">Множитель: x1</span>
             </div>
 
-            <div class="engine-grid" id="engineGrid"></div>
+            <div class="slot-board" id="slotBoard"></div>
 
-            <div class="engine-win-banner" id="engineWinBanner">Удачи! Крутите или купите Бонуску</div>
+            <div id="slotWinMsg" style="text-align:center; font-size:16px; font-weight:900; color:var(--green); min-height:24px; margin:6px 0;">
+                Нажмите «Крутить» или купите Бонуску (10 Фриспинов)!
+            </div>
 
-            <div class="engine-controls">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                    <div style="display:flex; gap:6px; align-items:center;">
-                        <button onclick="changeEngineBet(-500)" style="background:#232742; color:#fff; border:none; width:34px; height:34px; border-radius:8px; font-weight:900;">-</button>
-                        <div style="font-size:13px; font-weight:800; min-width:95px; text-align:center;">Ставка: <span id="engineBetVal">1 000</span> ₽</div>
-                        <button onclick="changeEngineBet(500)" style="background:#232742; color:#fff; border:none; width:34px; height:34px; border-radius:8px; font-weight:900;">+</button>
+            <div class="slot-controls-box">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; gap:6px;">
+                    <div style="display:flex; align-items:center; gap:5px; background:#090b14; padding:4px; border-radius:9px;">
+                        <button onclick="adjustSlotBet(-500)" style="background:#222742; color:#fff; border:none; width:30px; height:30px; border-radius:7px; font-weight:900; cursor:pointer;">-</button>
+                        <span style="font-size:12px; font-weight:800; min-width:80px; text-align:center;"><span id="slotBetText">1 000</span> ₽</span>
+                        <button onclick="adjustSlotBet(500)" style="background:#222742; color:#fff; border:none; width:30px; height:30px; border-radius:7px; font-weight:900; cursor:pointer;">+</button>
                     </div>
-                    <button onclick="buySlotBonus()" style="background:linear-gradient(135deg,#9b59b6,#8e44ad); color:#fff; border:none; padding:8px 12px; border-radius:10px; font-size:11px; font-weight:900; cursor:pointer;">
-                        🎁 КУПИТЬ БОНУСКУ (x100)
+
+                    <button onclick="triggerBonusBuy()" id="btnBuyBonus" style="flex:1; background:linear-gradient(135deg,#8e44ad,#e84393); color:#fff; border:none; padding:9px 8px; border-radius:9px; font-size:11px; font-weight:900; cursor:pointer;">
+                        🎁 БОНУСКА 10 FS (<span id="bonusPriceText">100K</span> ₽)
                     </button>
                 </div>
-                <button class="btn-action btn-gold" style="width:100%" onclick="spinEngineSlot(false)">🎰 КРУТИТЬ СЛОТ</button>
+
+                <div style="display:grid; grid-template-columns: 3fr 1fr; gap:8px;">
+                    <button class="btn-main bg-gold" id="btnSpinSlot" onclick="runSlotSpin()">🎰 КРУТИТЬ</button>
+                    <button class="btn-main" id="btnAutoSpin" style="background:#222742; color:#fff; font-size:12px;" onclick="toggleAutoSpin()">АВТО</button>
+                </div>
             </div>
         </div>
 
-        <!-- Режим 2: Официальный iframe провайдера -->
-        <div id="iframeContainer" style="display:none; flex:1; flex-direction:column;">
-            <iframe id="providerIframe" src="" style="flex:1; width:100%; border:none; background:#000;" allowfullscreen></iframe>
-        </div>
-    </div>
-
-    <!-- Модалка пополнения -->
-    <div class="modal" id="topupModal">
-        <div class="modal-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h3>⚡ Безлимитная Касса</h3>
-                <button onclick="closeTopUp()" style="background:none; border:none; color:#fff; font-size:24px; cursor:pointer;">×</button>
+        <!-- Режим 2: Официальный Демо-сервер -->
+        <div id="stageDemo" style="display:none; flex:1; flex-direction:column; background:#000;">
+            <div style="background:#141728; padding:8px 12px; display:flex; justify-content:space-between; align-items:center; font-size:11px;">
+                <span style="color:var(--muted);">Если провайдер блокирует окно в вашем регионе — используйте вкладку «На свой баланс»</span>
+                <a id="externalDemoLink" href="#" target="_blank" style="color:var(--accent); font-weight:800; text-decoration:none; white-space:nowrap; margin-left:8px;">↗ В браузере</a>
             </div>
-            <input type="number" id="topupInput" value="500000" style="width:100%; background:#0c0e1a; border:1px solid var(--border); color:#fff; padding:12px; border-radius:10px; font-size:16px; font-weight:800; margin-bottom:12px;">
-            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-bottom:14px;">
-                <button class="chip-btn" onclick="document.getElementById('topupInput').value=100000">+100K ₽</button>
-                <button class="chip-btn" onclick="document.getElementById('topupInput').value=1000000">+1M ₽</button>
-                <button class="chip-btn" onclick="document.getElementById('topupInput').value=10000000">+10M ₽</button>
-            </div>
-            <button class="btn-action btn-green" style="width:100%" onclick="confirmTopUp()">МГНОВЕННО ПОПОЛНИТЬ</button>
+            <iframe id="demoIframe" src="" style="flex:1; width:100%; border:none;" allowfullscreen></iframe>
         </div>
     </div>
 
-    <!-- Нижнее меню -->
+    <!-- Модалка Пополнения Баланса -->
+    <div class="popup-overlay" id="cashierModal">
+        <div class="popup-box">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                <h3>💰 Безлимитная Касса</h3>
+                <button onclick="closeCashier()" style="background:none; border:none; color:#fff; font-size:24px; cursor:pointer;">×</button>
+            </div>
+            <input type="number" id="cashierInput" value="500000" style="width:100%; background:#090b14; border:1px solid var(--border); color:#fff; padding:12px; border-radius:10px; font-size:16px; font-weight:800; margin-bottom:10px; user-select:text;">
+            <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:7px; margin-bottom:12px;">
+                <button class="chip-item" onclick="setCashierVal(100000)">+100K ₽</button>
+                <button class="chip-item" onclick="setCashierVal(1000000)">+1M ₽</button>
+                <button class="chip-item" onclick="setCashierVal(10000000)">+10M ₽</button>
+            </div>
+            <button class="btn-main bg-green" onclick="processTopUp()">ЗАЧИСЛИТЬ БЕСПЛАТНО</button>
+        </div>
+    </div>
+
+    <!-- Нижняя панель навигации -->
     <nav class="bottom-nav">
-        <button class="nav-item active" onclick="switchView('slots', this)">
-            <span class="nav-ico">🎰</span>Слоты (185)
+        <button class="nav-btn active" id="nav-slots" onclick="switchTab('slots')">
+            <span style="font-size:20px;">🎰</span>Слоты (185)
         </button>
-        <button class="nav-item" onclick="switchView('roulette', this)">
-            <span class="nav-ico">🎡</span>Рулетка
+        <button class="nav-btn" id="nav-roulette" onclick="switchTab('roulette')">
+            <span style="font-size:20px;">🎡</span>Рулетка
         </button>
-        <button class="nav-item" onclick="switchView('blackjack', this)">
-            <span class="nav-ico">🃏</span>Блэкджек
+        <button class="nav-btn" id="nav-blackjack" onclick="switchTab('blackjack')">
+            <span style="font-size:20px;">🃏</span>Блэкджек
         </button>
-        <button class="nav-item" onclick="openTopUp()">
-            <span class="nav-ico">💰</span>Пополнить
+        <button class="nav-btn" onclick="openCashier()">
+            <span style="font-size:20px;">💰</span>Касса
         </button>
     </nav>
 
     <script>
-        const tg = window.Telegram?.WebApp;
-        if (tg) tg.expand();
+        // Безопасная инициализация Telegram WebApp и хранилища (никогда не выдает ошибок)
+        try {
+            if (window.Telegram && window.Telegram.WebApp) {
+                window.Telegram.WebApp.expand();
+            }
+        } catch (e) {}
 
-        // ==================== БАЗА 185+ СЛОТОВ (HACKSAW, NOLIMIT, PRAGMATIC) ====================
-        const ALL_SLOTS = [
-            // --- 🦝 СЕРИЯ LE BANDIT (HACKSAW GAMING) ---
-            { id: 'hk_lebandit', sym: '1309', name: 'Le Bandit', prov: 'hacksaw', cat: 'le_series hit', rtp: '96.34%', max: 'x10,000', ico: '🦝🎩', c1: '#8e44ad', c2: '#e67e22' },
-            { id: 'hk_lepharaoh', sym: '1532', name: 'Le Pharaoh', prov: 'hacksaw', cat: 'le_series hit gods', rtp: '96.18%', max: 'x15,000', ico: '🦝🔺', c1: '#f39c12', c2: '#8e44ad' },
-            { id: 'hk_leviking', sym: '1620', name: 'Le Viking', prov: 'hacksaw', cat: 'le_series hit', rtp: '96.32%', max: 'x10,000', ico: '🦝🪓', c1: '#2980b9', c2: '#c0392b' },
-            { id: 'hk_lezeus', sym: '1690', name: 'Le Zeus', prov: 'hacksaw', cat: 'le_series gods', rtp: '96.26%', max: 'x15,000', ico: '🦝⚡', c1: '#0984e3', c2: '#f1c40f' },
-            { id: 'hk_lecowboy', sym: '1705', name: 'Le Cowboy', prov: 'hacksaw', cat: 'le_series', rtp: '96.28%', max: 'x12,500', ico: '🦝🤠', c1: '#d35400', c2: '#2c3e50' },
-            { id: 'hk_lesanta', sym: '1680', name: 'Le Santa', prov: 'hacksaw', cat: 'le_series', rtp: '96.24%', max: 'x10,000', ico: '🦝🎅', c1: '#c0392b', c2: '#27ae60' },
-            { id: 'hk_lefisherman', sym: '1715', name: 'Le Fisherman', prov: 'hacksaw', cat: 'le_series bass', rtp: '96.30%', max: 'x10,000', ico: '🦝🎣', c1: '#00cec9', c2: '#0984e3' },
-            { id: 'hk_lebunny', sym: '1720', name: 'Le Bunny', prov: 'hacksaw', cat: 'le_series animals', rtp: '96.25%', max: 'x10,000', ico: '🦝🐰', c1: '#fd79a8', c2: '#6c5ce7' },
-            { id: 'hk_leprechaun', sym: '1735', name: 'Le Prechaun', prov: 'hacksaw', cat: 'le_series', rtp: '96.35%', max: 'x10,000', ico: '🦝🍀', c1: '#00b894', c2: '#f1c40f' },
-            { id: 'hk_ledigger', sym: '1740', name: 'Le Digger', prov: 'hacksaw', cat: 'le_series fith', rtp: '96.29%', max: 'x15,000', ico: '🦝⛏️', c1: '#e67e22', c2: '#2d3436' },
-            { id: 'hk_levampire', sym: '1750', name: 'Le Vampire', prov: 'hacksaw', cat: 'le_series hardcore', rtp: '96.31%', max: 'x15,000', ico: '🦝🧛', c1: '#6c5ce7', c2: '#c0392b' },
-            { id: 'hk_lebandithw', sym: '1760', name: 'Le Bandit Hold & Win', prov: 'hacksaw', cat: 'le_series hit', rtp: '96.30%', max: 'x20,000', ico: '🦝💰', c1: '#f39c12', c2: '#27ae60' },
+        const memStore = {};
+        function safeGet(key, fallback) {
+            try {
+                const v = localStorage.getItem(key);
+                return v !== null ? v : fallback;
+            } catch (e) {
+                return memStore[key] !== undefined ? memStore[key] : fallback;
+            }
+        }
+        function safeSet(key, val) {
+            try { localStorage.setItem(key, val); } catch (e) { memStore[key] = val; }
+        }
 
-            // --- 🦝 ХИТЫ HACKSAW GAMING ---
-            { id: 'hk_wanted', sym: '1067', name: 'Wanted Dead or a Wild', prov: 'hacksaw', cat: 'hit hardcore', rtp: '96.38%', max: 'x12,500', ico: '🤠🔫', c1: '#c0392b', c2: '#2d3436' },
-            { id: 'hk_ripcity', sym: '1233', name: 'RIP City', prov: 'hacksaw', cat: 'hit animals', rtp: '96.22%', max: 'x12,500', ico: '🐱🐭', c1: '#2d3436', c2: '#00e676' },
-            { id: 'hk_anubis', sym: '1160', name: 'Hand of Anubis', prov: 'hacksaw', cat: 'hit gods hardcore', rtp: '96.24%', max: 'x10,000', ico: '🐺🩸', c1: '#1e272e', c2: '#c0392b' },
-            { id: 'hk_chaos1', sym: '1024', name: 'Chaos Crew', prov: 'hacksaw', cat: 'hit hardcore', rtp: '96.30%', max: 'x10,000', ico: '😼💀', c1: '#8e44ad', c2: '#00e676' },
-            { id: 'hk_chaos2', sym: '1340', name: 'Chaos Crew 2', prov: 'hacksaw', cat: 'hit hardcore', rtp: '96.27%', max: 'x20,000', ico: '😼⚡', c1: '#e84393', c2: '#2d3436' },
-            { id: 'hk_chaos3', sym: '1695', name: 'Chaos Crew 3', prov: 'hacksaw', cat: 'hit hardcore', rtp: '96.35%', max: 'x30,000', ico: '😼🔥', c1: '#ff4757', c2: '#5f27cd' },
-            { id: 'hk_fist', sym: '1420', name: 'Fist of Destruction', prov: 'hacksaw', cat: 'hit', rtp: '96.30%', max: 'x10,000', ico: '🥊💥', c1: '#e74c3c', c2: '#2980b9' },
-            { id: 'hk_sixsixsix', sym: '1490', name: 'SixSixSix', prov: 'hacksaw', cat: 'hit hardcore', rtp: '96.15%', max: 'x16,666', ico: '😈6️⃣', c1: '#111', c2: '#ff4757' },
-            { id: 'hk_slayers', sym: '1460', name: 'Slayers INC', prov: 'hacksaw', cat: 'hit hardcore', rtp: '96.28%', max: 'x15,000', ico: '⚔️👹', c1: '#d63031', c2: '#2d3436' },
-            { id: 'hk_dork', sym: '1190', name: 'Dork Unit', prov: 'hacksaw', cat: 'hit bonanza', rtp: '96.24%', max: 'x10,000', ico: '🤡🎁', c1: '#fd79a8', c2: '#00cec9' },
-            { id: 'hk_zezeus', sym: '1500', name: 'Ze Zeus', prov: 'hacksaw', cat: 'gods', rtp: '96.34%', max: 'x10,000', ico: '⚡🏛️', c1: '#0984e3', c2: '#fdcb6e' },
-            { id: 'hk_2wild', sym: '1395', name: '2 Wild 2 Die', prov: 'hacksaw', cat: 'hardcore', rtp: '96.25%', max: 'x15,000', ico: '🤠🩸', c1: '#c0392b', c2: '#f39c12' },
-            { id: 'hk_stackem', sym: '1055', name: "Stack 'Em", prov: 'hacksaw', cat: 'animals', rtp: '96.20%', max: 'x10,000', ico: '🐦🥞', c1: '#27ae60', c2: '#f1c40f' },
-            { id: 'hk_gladiator', sym: '1100', name: 'Gladiator Legends', prov: 'hacksaw', cat: 'gods hardcore', rtp: '96.31%', max: 'x10,000', ico: '🗡️🛡️', c1: '#2c3e50', c2: '#c0392b' },
-            { id: 'hk_beamboys', sym: '1410', name: 'Beam Boys', prov: 'hacksaw', cat: 'animals hardcore', rtp: '96.35%', max: 'x12,500', ico: '🐱レーザー', c1: '#111', c2: '#00d2ff' },
+        // ==================== ПОЛНАЯ БАЗА 185 СЛОТОВ С РУССКИМ ПОИСКОМ ====================
+        // Формат: [Имя, Русские_ключи_поиска, Провайдер, Категории, МаксВин, Иконка, Цвет1, Цвет2, PragmaticDemoSymbol]
+        const RAW_SLOTS = [
+            // --- СЕРИЯ LE BANDIT (HACKSAW) ---
+            ['Le Bandit', 'ле бандит енот смоки', 'hacksaw', 'le hit', 'x10,000', '🦝🎩', '#8e44ad', '#e67e22', 'vs20emptybank'],
+            ['Le Pharaoh', 'ле фараон енот пирамида египет', 'hacksaw', 'le hit gods', 'x15,000', '🦝🔺', '#f39c12', '#8e44ad', 'vs20pbonanza'],
+            ['Le Viking', 'ле викинг енот', 'hacksaw', 'le hit', 'x10,000', '🦝🪓', '#2980b9', '#c0392b', 'vswayshammthor'],
+            ['Le Zeus', 'ле зевс енот олимп', 'hacksaw', 'le hit gods', 'x15,000', '🦝⚡', '#0984e3', '#f1c40f', 'vs20olympgate'],
+            ['Le Cowboy', 'ле ковбой енот дикий запад', 'hacksaw', 'le', 'x12,500', '🦝🤠', '#d35400', '#2c3e50', 'vs20wildwest'],
+            ['Le Santa', 'ле санта енот новый год', 'hacksaw', 'le sweet', 'x10,000', '🦝🎅', '#c0392b', '#27ae60', 'vs20santawonder'],
+            ['Le Fisherman', 'ле фишерман рыбак енот рыбалка', 'hacksaw', 'le bass', 'x10,000', '🦝🎣', '#00cec9', '#0984e3', 'vs10bbbonanza'],
+            ['Le Bunny', 'ле банни кролик енот', 'hacksaw', 'le dog', 'x10,000', '🦝🐰', '#fd79a8', '#6c5ce7', 'vs20fruitparty'],
+            ['Le Prechaun', 'ле лепрекон клевер енот', 'hacksaw', 'le', 'x10,000', '🦝🍀', '#00b894', '#f1c40f', 'vswayswwriches'],
+            ['Le Digger', 'ле диггер шахтер енот шахта', 'hacksaw', 'le mine', 'x15,000', '🦝⛏️', '#e67e22', '#2d3436', 'vs20bonzgold'],
+            ['Le Vampire', 'ле вампир енот дракула', 'hacksaw', 'le hard', 'x15,000', '🦝🧛', '#6c5ce7', '#c0392b', 'vs20zeusvs'],
+            ['Le King VIP', 'ле кинг король енот', 'hacksaw', 'le hit', 'x20,000', '🦝👑', '#f1c40f', '#8e44ad', 'vs20midas'],
 
-            // --- 🧨 FIRE IN THE HOLE (ВСЕ ЧАСТИ), DAS xBOOT & NOLIMIT CITY ---
-            { id: 'nl_fith1', sym: 'FireInTheHole', name: 'Fire in the Hole xBomb', prov: 'nolimit', cat: 'fith hit hardcore', rtp: '96.06%', max: 'x60,000', ico: '🧨⛏️', c1: '#d35400', c2: '#2d3436' },
-            { id: 'nl_fith2', sym: 'FireInTheHole2', name: 'Fire in the Hole 2', prov: 'nolimit', cat: 'fith hit hardcore', rtp: '96.07%', max: 'x65,000', ico: '🧨🍺', c1: '#e67e22', c2: '#c0392b' },
-            { id: 'nl_fith3', sym: 'FireInTheHole3', name: 'Fire in the Hole 3', prov: 'nolimit', cat: 'fith hit hardcore', rtp: '96.05%', max: 'x70,000', ico: '🧨❄️', c1: '#0984e3', c2: '#e67e22' },
-            { id: 'nl_dasxboot', sym: 'DasXBoot', name: 'Das xBoot', prov: 'nolimit', cat: 'fith hit hardcore', rtp: '96.03%', max: 'x55,200', ico: '🚢🎯', c1: '#192a56', c2: '#27ae60' },
-            { id: 'nl_deadcanary', sym: 'DeadCanary', name: 'Dead Canary (Шахты)', prov: 'nolimit', cat: 'fith hardcore', rtp: '96.02%', max: 'x65,000', ico: '🐤🧨', c1: '#f1c40f', c2: '#2c3e50' },
-            { id: 'nl_mental', sym: 'Mental', name: 'Mental', prov: 'nolimit', cat: 'hit hardcore', rtp: '96.08%', max: 'x66,666', ico: '🧠🩸', c1: '#2d3436', c2: '#c0392b' },
-            { id: 'nl_sanquentin1', sym: 'SanQuentin', name: 'San Quentin xWays', prov: 'nolimit', cat: 'hit hardcore', rtp: '96.03%', max: 'x150,000', ico: '⛓️🚨', c1: '#d35400', c2: '#2c3e50' },
-            { id: 'nl_sanquentin2', sym: 'SanQuentin2', name: 'San Quentin 2: Death Row', prov: 'nolimit', cat: 'hit hardcore', rtp: '96.13%', max: 'x200,000', ico: '⛓️🔥', c1: '#c0392b', c2: '#111' },
-            { id: 'nl_tombstonerip', sym: 'TombstoneRIP', name: 'Tombstone RIP', prov: 'nolimit', cat: 'hit hardcore', rtp: '96.08%', max: 'x300,000', ico: '⚰️🤠', c1: '#2d3436', c2: '#e74c3c' },
-            { id: 'nl_tombstonenm', sym: 'TombstoneNoMercy', name: 'Tombstone No Mercy', prov: 'nolimit', cat: 'hardcore', rtp: '96.05%', max: 'x16,480', ico: '🔫⚰️', c1: '#7f8c8d', c2: '#c0392b' },
-            { id: 'nl_deadwood', sym: 'Deadwood', name: 'Deadwood xNudge', prov: 'nolimit', cat: 'hit hardcore', rtp: '96.03%', max: 'x13,950', ico: '🤠💀', c1: '#d35400', c2: '#34495e' },
-            { id: 'nl_deadwoodrip', sym: 'DeadwoodRIP', name: 'Deadwood RIP', prov: 'nolimit', cat: 'hardcore', rtp: '96.09%', max: 'x100,000', ico: '🤠🩸', c1: '#8e44ad', c2: '#c0392b' },
-            { id: 'nl_folsom', sym: 'FolsomPrison', name: 'Folsom Prison', prov: 'nolimit', cat: 'hardcore', rtp: '96.07%', max: 'x75,000', ico: '🪳⛓️', c1: '#2c3e50', c2: '#e67e22' },
-            { id: 'nl_kenneth', sym: 'KennethMustDie', name: 'Kenneth Must Die', prov: 'nolimit', cat: 'hardcore', rtp: '96.04%', max: 'x69,000', ico: '🎭🔥', c1: '#e84393', c2: '#2d3436' },
-            { id: 'nl_roadrage', sym: 'RoadRage', name: 'Road Rage', prov: 'nolimit', cat: 'hardcore', rtp: '96.03%', max: 'x36,000', ico: '🚗🤬', c1: '#e74c3c', c2: '#f39c12' },
-            { id: 'nl_ninetofive', sym: 'NineToFive', name: 'Nine To Five', prov: 'nolimit', cat: 'hardcore', rtp: '96.03%', max: 'x9,217', ico: '💻☕', c1: '#0984e3', c2: '#636e72' },
-            { id: 'nl_disturbed', sym: 'Disturbed', name: 'Disturbed', prov: 'nolimit', cat: 'hardcore', rtp: '96.10%', max: 'x54,391', ico: '💉🏥', c1: '#00b894', c2: '#2d3436' },
-            { id: 'nl_thecrypt', sym: 'TheCrypt', name: 'The Crypt', prov: 'nolimit', cat: 'hardcore', rtp: '96.05%', max: 'x27,000', ico: '🎸💀', c1: '#6c5ce7', c2: '#111' },
-            { id: 'nl_hoarder', sym: 'xWaysHoarder', name: 'xWays Hoarder xSplit', prov: 'nolimit', cat: 'hardcore', rtp: '96.14%', max: 'x11,030', ico: '☢️🧻', c1: '#f39c12', c2: '#27ae60' },
-            { id: 'nl_punk2', sym: 'PunkRocker2', name: 'Punk Rocker 2', prov: 'nolimit', cat: 'hardcore', rtp: '96.06%', max: 'x30,144', ico: '🎸🤘', c1: '#e84393', c2: '#0984e3' },
+            // --- ХИТЫ HACKSAW GAMING ---
+            ['Wanted Dead or a Wild', 'вантед дед ор вайлд дуэли ковбои vs', 'hacksaw', 'hit hard', 'x12,500', '🤠🔫', '#c0392b', '#2d3436', 'vs20wildwest'],
+            ['RIP City', 'рип сити кот и мышь', 'hacksaw', 'hit dog', 'x12,500', '🐱🐭', '#2d3436', '#00e676', 'vs20cleocatra'],
+            ['Hand of Anubis', 'хэнд оф анубис рука анубиса', 'hacksaw', 'hit gods hard', 'x10,000', '🐺🩸', '#1e272e', '#c0392b', 'vs10bookoftut'],
+            ['Chaos Crew', 'хаос крю кот череп', 'hacksaw', 'hit hard', 'x10,000', '😼💀', '#8e44ad', '#00e676', 'vs20emptybank'],
+            ['Chaos Crew 2', 'хаос крю 2', 'hacksaw', 'hit hard', 'x20,000', '😼⚡', '#e84393', '#2d3436', 'vs20emptybank'],
+            ['Chaos Crew 3', 'хаос крю 3', 'hacksaw', 'hit hard', 'x30,000', '😼🔥', '#ff4757', '#5f27cd', 'vs20emptybank'],
+            ['Fist of Destruction', 'фист оф дестракшн кулак бойцы', 'hacksaw', 'hit', 'x10,000', '🥊💥', '#e74c3c', '#2980b9', 'vs20zeusvs'],
+            ['SixSixSix', '666 сикс черти дьявол', 'hacksaw', 'hit hard', 'x16,666', '😈6️⃣', '#111111', '#ff4757', 'vs20zeusvs'],
+            ['Slayers INC', 'слеерс инк самураи катана', 'hacksaw', 'hit hard', 'x15,000', '⚔️👹', '#d63031', '#2d3436', 'vs20swordofares'],
+            ['Dork Unit', 'дорк юнит клоуны подарки', 'hacksaw', 'hit sweet', 'x10,000', '🤡🎁', '#fd79a8', '#00cec9', 'vs5joker'],
+            ['Ze Zeus', 'зе зевс', 'hacksaw', 'gods', 'x10,000', '⚡🏛️', '#0984e3', '#fdcb6e', 'vs20olympgate'],
+            ['2 Wild 2 Die', '2 вайлд револьвер ковбойша', 'hacksaw', 'hard', 'x15,000', '🤠🩸', '#c0392b', '#f39c12', 'vs10cowgold'],
+            ['Gladiator Legends', 'гладиатор леджендс колезей', 'hacksaw', 'gods hard', 'x10,000', '🗡️🛡️', '#2c3e50', '#c0392b', 'vs25gladiator'],
 
-            // --- ⚡ PRAGMATIC PLAY (130+ СЛОТОВ) ---
-            { id: 'vs20olympgate', sym: 'vs20olympgate', name: 'Gates of Olympus', prov: 'pragmatic', cat: 'hit gods', rtp: '96.5%', max: 'x5,000', ico: '⚡🧔🏼‍♂️', c1: '#2980b9', c2: '#8e44ad' },
-            { id: 'vs20olympx', sym: 'vs20olympx', name: 'Gates of Olympus 1000', prov: 'pragmatic', cat: 'hit 1000 gods', rtp: '96.5%', max: 'x15,000', ico: '⚡👑', c1: '#1e3c72', c2: '#f39c12' },
-            { id: 'vs20fruitsw', sym: 'vs20fruitsw', name: 'Sweet Bonanza', prov: 'pragmatic', cat: 'hit bonanza', rtp: '96.5%', max: 'x21,100', ico: '🍭🍬', c1: '#ff6b81', c2: '#ff4757' },
-            { id: 'vs20fruitswx', sym: 'vs20fruitswx', name: 'Sweet Bonanza 1000', prov: 'pragmatic', cat: 'hit 1000 bonanza', rtp: '96.5%', max: 'x25,000', ico: '💣🍭', c1: '#fd79a8', c2: '#e84393' },
-            { id: 'vs20sugarrush', sym: 'vs20sugarrush', name: 'Sugar Rush', prov: 'pragmatic', cat: 'hit bonanza', rtp: '96.5%', max: 'x5,000', ico: '🧸🧁', c1: '#e056fd', c2: '#be2edd' },
-            { id: 'vs20sugarrushx', sym: 'vs20sugarrushx', name: 'Sugar Rush 1000', prov: 'pragmatic', cat: 'hit 1000 bonanza', rtp: '96.5%', max: 'x25,000', ico: '🚀🧸', c1: '#a29bfe', c2: '#6c5ce7' },
-            { id: 'vs20starlight', sym: 'vs20starlight', name: 'Starlight Princess', prov: 'pragmatic', cat: 'hit gods', rtp: '96.5%', max: 'x5,000', ico: '👸🏼✨', c1: '#fd79a8', c2: '#0984e3' },
-            { id: 'vs20starlightx', sym: 'vs20starlightx', name: 'Starlight Princess 1000', prov: 'pragmatic', cat: 'hit 1000 gods', rtp: '96.5%', max: 'x15,000', ico: '🌟👸🏼', c1: '#e84393', c2: '#fdcb6e' },
-            { id: 'vs20wisdomx', sym: 'vs20wisdom', name: 'Wisdom of Athena 1000', prov: 'pragmatic', cat: 'hit 1000 gods', rtp: '96.0%', max: 'x10,000', ico: '🦉⚡', c1: '#d35400', c2: '#f1c40f' },
-            { id: 'vs20doghouse', sym: 'vs20doghouse', name: 'The Dog House', prov: 'pragmatic', cat: 'hit animals', rtp: '96.5%', max: 'x6,750', ico: '🐶🦴', c1: '#f39c12', c2: '#d35400' },
-            { id: 'vswaysdogs', sym: 'vswaysdogs', name: 'The Dog House Megaways', prov: 'pragmatic', cat: 'hit megaways animals', rtp: '96.5%', max: 'x12,305', ico: '🐕🏠', c1: '#e67e22', c2: '#2980b9' },
-            { id: 'vs20doghousemh', sym: 'vs20doghousemh', name: 'The Dog House Multihold', prov: 'pragmatic', cat: 'hit animals', rtp: '96.1%', max: 'x9,000', ico: '🐾🐶', c1: '#d35400', c2: '#8e44ad' },
-            { id: 'vs20zeusvs', sym: 'vs20zeusvs', name: 'Zeus vs Hades: Gods of War', prov: 'pragmatic', cat: 'hit gods hardcore', rtp: '96.1%', max: 'x15,000', ico: '⚡🔥', c1: '#0984e3', c2: '#d63031' },
-            { id: 'vs20gatotgates', sym: 'vs20gatotgates', name: 'Gates of Gatot Kaca', prov: 'pragmatic', cat: 'hit gods', rtp: '96.5%', max: 'x5,000', ico: '🛡️⚡', c1: '#16a085', c2: '#f39c12' },
-            { id: 'vs20gatotx', sym: 'vs20gatotx', name: 'Gates of Gatot Kaca 1000', prov: 'pragmatic', cat: '1000 gods', rtp: '96.5%', max: 'x15,000', ico: '⚔️🌟', c1: '#27ae60', c2: '#e67e22' },
-            { id: 'vs20wisdom', sym: 'vs20wisdom', name: 'Wisdom of Athena', prov: 'pragmatic', cat: 'hit gods', rtp: '96.1%', max: 'x5,000', ico: '🦉🏛️', c1: '#e67e22', c2: '#8e44ad' },
-            { id: 'vs20sugarsup', sym: 'vs20sugarrush', name: 'Sugar Supreme Powernudge', prov: 'pragmatic', cat: 'bonanza', rtp: '96.1%', max: 'x5,000', ico: '🍭🌀', c1: '#e84393', c2: '#f39c12' },
-            { id: 'vs20vampy', sym: 'vs20zeusvs', name: 'Vampy Party', prov: 'pragmatic', cat: 'hit hardcore', rtp: '96.0%', max: 'x5,000', ico: '🧛🕺', c1: '#8e44ad', c2: '#d63031' },
-            { id: 'vs10bbbonanza', sym: 'vs10bbbonanza', name: 'Big Bass Bonanza', prov: 'pragmatic', cat: 'hit bass bonanza', rtp: '96.7%', max: 'x2,100', ico: '🐟🎣', c1: '#00cec9', c2: '#0984e3' },
-            { id: 'vs12bbb', sym: 'vs12bbb', name: 'Bigger Bass Bonanza', prov: 'pragmatic', cat: 'hit bass bonanza', rtp: '96.7%', max: 'x4,000', ico: '🚤🐟', c1: '#0984e3', c2: '#6c5ce7' },
-            { id: 'vswaysbbb', sym: 'vswaysbbb', name: 'Big Bass Megaways', prov: 'pragmatic', cat: 'bass megaways', rtp: '96.7%', max: 'x4,000', ico: '🌊🎣', c1: '#00b894', c2: '#0984e3' },
-            { id: 'vs10bbsplash', sym: 'vs10bbsplash', name: 'Big Bass Splash', prov: 'pragmatic', cat: 'hit bass', rtp: '96.7%', max: 'x5,000', ico: '🛻🐟', c1: '#e17055', c2: '#0984e3' },
-            { id: 'vs10bbextreme', sym: 'vs10bbextreme', name: 'Big Bass Amazon Xtreme', prov: 'pragmatic', cat: 'bass', rtp: '96.1%', max: 'x10,000', ico: '🌴🎣', c1: '#2ecc71', c2: '#16a085' },
-            { id: 'vs10bbhas', sym: 'vs10bbhas', name: 'Big Bass Hold & Spinner', prov: 'pragmatic', cat: 'bass', rtp: '96.1%', max: 'x10,000', ico: '🪙🐟', c1: '#f1c40f', c2: '#2980b9' },
-            { id: 'vs10bxmas', sym: 'vs10bxmas', name: 'Christmas Big Bass', prov: 'pragmatic', cat: 'bass', rtp: '96.7%', max: 'x2,100', ico: '🎅🏼🐟', c1: '#d63031', c2: '#0984e3' },
-            { id: 'vs10bbfloats', sym: 'vs10bbfloats', name: 'Big Bass Floats My Boat', prov: 'pragmatic', cat: 'bass', rtp: '96.1%', max: 'x5,000', ico: '🛥️🎣', c1: '#3498db', c2: '#2c3e50' },
-            { id: 'vs10bbblizzard', sym: 'vs10bbblizzard', name: 'Bigger Bass Blizzard', prov: 'pragmatic', cat: 'bass', rtp: '96.1%', max: 'x4,000', ico: '❄️🐟', c1: '#74b9ff', c2: '#0984e3' },
-            { id: 'vs10bbkeeping', sym: 'vs10bbkeeping', name: 'Big Bass Keeping It Reel', prov: 'pragmatic', cat: 'bass', rtp: '96.1%', max: 'x10,000', ico: '🪣🐟', c1: '#00cec9', c2: '#2d3436' },
-            { id: 'vs10bbvegas', sym: 'vs10bbsplash', name: 'Big Bass Vegas Double Down', prov: 'pragmatic', cat: 'bass hit', rtp: '96.5%', max: 'x5,000', ico: '🎰🐟', c1: '#e84393', c2: '#0984e3' },
-            { id: 'vs10bbgolden', sym: 'vs10bbextreme', name: 'Big Bass Secrets of Golden Lake', prov: 'pragmatic', cat: 'bass gods', rtp: '96.1%', max: 'x5,000', ico: '🗡️🐟', c1: '#f39c12', c2: '#0984e3' },
-            { id: 'vs20fruitparty', sym: 'vs20fruitparty', name: 'Fruit Party', prov: 'pragmatic', cat: 'hit bonanza', rtp: '96.5%', max: 'x5,000', ico: '🍓🍍', c1: '#fd79a8', c2: '#fdcb6e' },
-            { id: 'vs20fparty2', sym: 'vs20fparty2', name: 'Fruit Party 2', prov: 'pragmatic', cat: 'bonanza', rtp: '96.5%', max: 'x5,000', ico: '🍇🍊', c1: '#a29bfe', c2: '#ff7675' },
-            { id: 'vs50juicyfr', sym: 'vs50juicyfr', name: 'Juicy Fruits', prov: 'pragmatic', cat: 'bonanza', rtp: '96.5%', max: 'x5,000', ico: '🍉🍋', c1: '#ff7675', c2: '#55efc4' },
-            { id: 'vs20sbxmas', sym: 'vs20sbxmas', name: 'Sweet Bonanza Xmas', prov: 'pragmatic', cat: 'bonanza', rtp: '96.5%', max: 'x21,100', ico: '⛄🍭', c1: '#74b9ff', c2: '#ff7675' },
-            { id: 'vs20sugarrushxmas', sym: 'vs20sugarrushxmas', name: 'Sugar Rush Xmas', prov: 'pragmatic', cat: 'bonanza', rtp: '96.5%', max: 'x5,000', ico: '🎄🧁', c1: '#d63031', c2: '#e056fd' },
-            { id: 'vs20gemsbonanza', sym: 'vs20gemsbonanza', name: 'Gems Bonanza', prov: 'pragmatic', cat: 'bonanza fith', rtp: '96.5%', max: 'x10,000', ico: '💎🏺', c1: '#8e44ad', c2: '#f39c12' },
-            { id: 'vs20bonzgold', sym: 'vs20bonzgold', name: 'Bonanza Gold', prov: 'pragmatic', cat: 'bonanza fith', rtp: '96.6%', max: 'x5,000', ico: '⛏️💎', c1: '#f39c12', c2: '#16a085' },
-            { id: 'vs20pbonanza', sym: 'vs20pbonanza', name: 'Pyramid Bonanza', prov: 'pragmatic', cat: 'bonanza gods', rtp: '96.5%', max: 'x21,100', ico: '🔺🐪', c1: '#e67e22', c2: '#d35400' },
-            { id: 'vs20cashbonanza', sym: 'vs20cashbonanza', name: 'Cash Bonanza', prov: 'pragmatic', cat: 'bonanza', rtp: '96.5%', max: 'x5,000', ico: '💵🏦', c1: '#27ae60', c2: '#f1c40f' },
-            { id: 'vs20bchprty', sym: 'vs20bchprty', name: 'Wild Beach Party', prov: 'pragmatic', cat: 'bonanza', rtp: '96.5%', max: 'x5,000', ico: '🏖️🍹', c1: '#00cec9', c2: '#fd79a8' },
-            { id: 'vswaysmadame', sym: 'vswaysmadame', name: 'Madame Destiny Megaways', prov: 'pragmatic', cat: 'hit megaways', rtp: '96.6%', max: 'x5,000', ico: '🔮🦉', c1: '#6c5ce7', c2: '#2d3436' },
-            { id: 'vs10madame', sym: 'vs10madame', name: 'Madame Destiny', prov: 'pragmatic', cat: 'hit', rtp: '96.5%', max: 'x1,500', ico: '🃏🔮', c1: '#8e44ad', c2: '#192a56' },
-            { id: 'vswaysrhino', sym: 'vswaysrhino', name: 'Great Rhino Megaways', prov: 'pragmatic', cat: 'megaways animals', rtp: '96.6%', max: 'x20,000', ico: '🦏🌿', c1: '#27ae60', c2: '#f39c12' },
-            { id: 'vs20rhino', sym: 'vs20rhino', name: 'Great Rhino', prov: 'pragmatic', cat: 'animals', rtp: '96.5%', max: 'x500', ico: '🦏☀️', c1: '#e67e22', c2: '#27ae60' },
-            { id: 'vs20rhinoluxe', sym: 'vs20rhinoluxe', name: 'Great Rhino Deluxe', prov: 'pragmatic', cat: 'animals', rtp: '96.5%', max: 'x6,242', ico: '🦏👑', c1: '#d35400', c2: '#16a085' },
-            { id: 'vswaysbufking', sym: 'vswaysbufking', name: 'Buffalo King Megaways', prov: 'pragmatic', cat: 'hit megaways animals', rtp: '96.5%', max: 'x5,000', ico: '🦬⚡', c1: '#d35400', c2: '#6c5ce7' },
-            { id: 'vs4096bufking', sym: 'vs4096bufking', name: 'Buffalo King', prov: 'pragmatic', cat: 'hit animals', rtp: '96.1%', max: 'x93,750', ico: '🦬🏜️', c1: '#e67e22', c2: '#c0392b' },
-            { id: 'vswayslions', sym: 'vswayslions', name: '5 Lions Megaways', prov: 'pragmatic', cat: 'megaways animals', rtp: '96.5%', max: 'x5,000', ico: '🦁🐉', c1: '#c0392b', c2: '#f1c40f' },
-            { id: 'vs243lionsgold', sym: 'vs243lionsgold', name: '5 Lions Gold', prov: 'pragmatic', cat: 'animals', rtp: '96.5%', max: 'x7,342', ico: '🦁🪙', c1: '#f39c12', c2: '#8e44ad' },
-            { id: 'vswayschilheat', sym: 'vswayschilheat', name: 'Chilli Heat Megaways', prov: 'pragmatic', cat: 'megaways', rtp: '96.5%', max: 'x5,000', ico: '🌶️🇲🇽', c1: '#e74c3c', c2: '#f39c12' },
-            { id: 'vs25chilli', sym: 'vs25chilli', name: 'Chilli Heat', prov: 'pragmatic', cat: 'hit', rtp: '96.5%', max: 'x2,512', ico: '🌶️🎸', c1: '#d63031', c2: '#fdcb6e' },
-            { id: 'vswayswwhex', sym: 'vswayswwhex', name: 'Wild West Gold Megaways', prov: 'pragmatic', cat: 'megaways', rtp: '96.4%', max: 'x5,000', ico: '🤠🔫', c1: '#d35400', c2: '#2c3e50' },
-            { id: 'vs20wildwest', sym: 'vs20wildwest', name: 'Wild West Gold', prov: 'pragmatic', cat: 'hit', rtp: '96.5%', max: 'x10,000', ico: '🤠⭐', c1: '#e67e22', c2: '#7f8c8d' },
-            { id: 'vswayshammthor', sym: 'vswayshammthor', name: 'Power of Thor Megaways', prov: 'pragmatic', cat: 'megaways gods', rtp: '96.6%', max: 'x5,000', ico: '🔨⚡', c1: '#2980b9', c2: '#c0392b' },
-            { id: 'vs20midas', sym: 'vs20midas', name: 'The Hand of Midas', prov: 'pragmatic', cat: 'hit gods', rtp: '96.5%', max: 'x5,000', ico: '✋🏼👑', c1: '#f1c40f', c2: '#8e44ad' },
-            { id: 'vs20midas2', sym: 'vs20midas', name: 'Hand of Midas 2', prov: 'pragmatic', cat: 'hit gods', rtp: '96.1%', max: 'x8,000', ico: '👑✨', c1: '#f39c12', c2: '#2980b9' },
-            { id: 'vs20forge', sym: 'vs20forge', name: 'Forge of Olympus', prov: 'pragmatic', cat: 'gods', rtp: '96.3%', max: 'x5,000', ico: '⚒️🔥', c1: '#e67e22', c2: '#c0392b' },
-            { id: 'vs20swordofares', sym: 'vs20swordofares', name: 'Sword of Ares', prov: 'pragmatic', cat: 'gods', rtp: '96.4%', max: 'x10,000', ico: '🗡️🛡️', c1: '#c0392b', c2: '#f39c12' },
-            { id: 'vs20cleocatra', sym: 'vs20cleocatra', name: 'Cleocatra', prov: 'pragmatic', cat: 'animals gods', rtp: '96.2%', max: 'x5,000', ico: '🐱👑', c1: '#f39c12', c2: '#2980b9' },
-            { id: 'vs10bookoftut', sym: 'vs10bookoftut', name: 'John Hunter: Book of Tut', prov: 'pragmatic', cat: 'hit gods', rtp: '96.5%', max: 'x5,500', ico: '📖🤠', c1: '#f39c12', c2: '#d35400' },
-            { id: 'vs25scarabqueen', sym: 'vs25scarabqueen', name: 'John Hunter: Scarab Queen', prov: 'pragmatic', cat: 'gods', rtp: '96.5%', max: 'x10,500', ico: '🪲👑', c1: '#e67e22', c2: '#16a085' },
-            { id: 'vs25wolfgold', sym: 'vs25wolfgold', name: 'Wolf Gold', prov: 'pragmatic', cat: 'hit animals', rtp: '96.0%', max: 'x2,500', ico: '🐺🌕', c1: '#2980b9', c2: '#e67e22' },
-            { id: 'vs25mustang', sym: 'vs25mustang', name: 'Mustang Gold', prov: 'pragmatic', cat: 'hit animals', rtp: '96.5%', max: 'x12,000', ico: '🐎🌵', c1: '#d35400', c2: '#f1c40f' },
-            { id: 'vs20kraken', sym: 'vs20kraken', name: 'Release the Kraken', prov: 'pragmatic', cat: 'animals', rtp: '96.5%', max: 'x10,000', ico: '🐙⚓', c1: '#0984e3', c2: '#2d3436' },
-            { id: 'vs20kraken2', sym: 'vs20kraken2', name: 'Release the Kraken 2', prov: 'pragmatic', cat: 'animals', rtp: '96.5%', max: 'x5,000', ico: '🦑🌊', c1: '#00cec9', c2: '#0984e3' },
-            { id: 'vs20bison', sym: 'vs4096bufking', name: 'Release the Bison', prov: 'pragmatic', cat: 'animals', rtp: '96.5%', max: 'x3,000', ico: '🦬🌿', c1: '#27ae60', c2: '#d35400' },
-            { id: 'vs20mochimon', sym: 'vs20sugarrush', name: 'Mochimon', prov: 'pragmatic', cat: 'bonanza', rtp: '96.5%', max: 'x5,000', ico: '🍡👾', c1: '#fd79a8', c2: '#6c5ce7' },
-            { id: 'vs20rabbit', sym: 'vs20fruitparty', name: 'Rabbit Garden', prov: 'pragmatic', cat: 'animals bonanza', rtp: '96.0%', max: 'x10,000', ico: '🐰🥕', c1: '#e67e22', c2: '#27ae60' },
-            { id: 'vs20monster', sym: 'vs20olympgate', name: 'Monster Superlanche', prov: 'pragmatic', cat: 'bonanza', rtp: '96.0%', max: 'x5,000', ico: '👾🧪', c1: '#8e44ad', c2: '#00cec9' },
-            { id: 'vs20zombie', sym: 'vs20wildwest', name: 'Zombie Carnival', prov: 'pragmatic', cat: 'hardcore', rtp: '96.5%', max: 'x5,000', ico: '🧟🎪', c1: '#c0392b', c2: '#8e44ad' },
-            { id: 'vs20barn', sym: 'vs20fruitsw', name: 'Barn Festival', prov: 'pragmatic', cat: 'bonanza', rtp: '96.4%', max: 'x20,000', ico: '🚜🌽', c1: '#27ae60', c2: '#f39c12' },
-            { id: 'vs20goblin', sym: 'vs20sugarrush', name: 'Goblin Heist Powernudge', prov: 'pragmatic', cat: 'gods', rtp: '96.5%', max: 'x4,000', ico: '👺💰', c1: '#16a085', c2: '#c0392b' },
-            { id: 'vs10tictac', sym: 'vs5aztecgems', name: 'Tic Tac Take', prov: 'pragmatic', cat: 'bonanza', rtp: '96.6%', max: 'x2,200', ico: '❌⭕', c1: '#e84393', c2: '#0984e3' },
-            { id: 'vs10extrajuicy', sym: 'vs50juicyfr', name: 'Extra Juicy', prov: 'pragmatic', cat: 'bonanza', rtp: '96.5%', max: 'x60,000', ico: '🍒🍋', c1: '#fd79a8', c2: '#f1c40f' },
-            { id: 'vswaysextrajuicy', sym: 'vs50juicyfr', name: 'Extra Juicy Megaways', prov: 'pragmatic', cat: 'megaways bonanza', rtp: '96.4%', max: 'x5,000', ico: '🍉⚡', c1: '#e84393', c2: '#00cec9' },
-            { id: 'vs10floatdrg', sym: 'vs10bbbonanza', name: 'Floating Dragon', prov: 'pragmatic', cat: 'gods', rtp: '96.7%', max: 'x5,000', ico: '🐉🪁', c1: '#c0392b', c2: '#0984e3' },
-            { id: 'vswaysfloatdrg', sym: 'vswaysbbb', name: 'Floating Dragon Megaways', prov: 'pragmatic', cat: 'megaways gods', rtp: '96.7%', max: 'x20,000', ico: '🐉🏮', c1: '#e74c3c', c2: '#f1c40f' },
-            { id: 'vs20starchrist', sym: 'vs20starlight', name: 'Starlight Christmas', prov: 'pragmatic', cat: 'gods', rtp: '96.5%', max: 'x5,000', ico: '👸🏼❄️', c1: '#0984e3', c2: '#d63031' },
-            { id: 'vs40bigjuan', sym: 'vs25chilli', name: 'Big Juan', prov: 'pragmatic', cat: 'hit', rtp: '96.7%', max: 'x2,600', ico: '🌮🇲🇽', c1: '#e67e22', c2: '#c0392b' },
-            { id: 'vs20dayofdead', sym: 'vs20wildwest', name: 'Day of Dead', prov: 'pragmatic', cat: 'hardcore', rtp: '96.5%', max: 'x4,500', ico: '💀🎸', c1: '#8e44ad', c2: '#f39c12' },
-            { id: 'vswaysmystic', sym: 'vswaysbufking', name: 'Mystic Chief', prov: 'pragmatic', cat: 'animals', rtp: '96.5%', max: 'x5,000', ico: '🪶⛺', c1: '#6c5ce7', c2: '#e67e22' },
-            { id: 'vs9piggybank', sym: 'vs20cashbonanza', name: 'Piggy Bank Bills', prov: 'pragmatic', cat: 'animals', rtp: '96.5%', max: 'x5,000', ico: '🐷💵', c1: '#27ae60', c2: '#fd79a8' },
-            { id: 'vs20trsbox', sym: 'vs20midas', name: 'Treasure Wild', prov: 'pragmatic', cat: 'gods', rtp: '96.5%', max: 'x4,500', ico: '👑💎', c1: '#f1c40f', c2: '#2c3e50' },
-            { id: 'vs20chickdrop', sym: 'vs20fruitparty', name: 'Chicken Drop', prov: 'pragmatic', cat: 'animals', rtp: '96.5%', max: 'x5,000', ico: '🐔🥚', c1: '#e67e22', c2: '#2ecc71' },
-            { id: 'vs20loki', sym: 'vs20olympgate', name: "Loki's Riches", prov: 'pragmatic', cat: 'gods', rtp: '96.0%', max: 'x10,000', ico: '🦌⚡', c1: '#27ae60', c2: '#f1c40f' },
-            { id: 'vswayspompeii', sym: 'vswayshammthor', name: 'Pompeii Megareels Megaways', prov: 'pragmatic', cat: 'megaways gods', rtp: '96.0%', max: 'x10,000', ico: '🌋🏛️', c1: '#c0392b', c2: '#e67e22' }
+            // --- NOLIMIT CITY (ВСЕ FIRE IN THE HOLE, DAS xBOOT И ХАРДКОР) ---
+            ['Fire in the Hole 3', 'фаер ин зе хол 3 шахта гном бомба третья часть', 'nolimit', 'mine hit hard', 'x70,000', '🧨❄️', '#0984e3', '#e67e22', 'vs20bonzgold'],
+            ['Fire in the Hole 2', 'фаер ин зе хол 2 шахта гном вторая часть', 'nolimit', 'mine hit hard', 'x65,000', '🧨🍺', '#e67e22', '#c0392b', 'vs20bonzgold'],
+            ['Fire in the Hole xBomb', 'фаер ин зе хол 1 шахта бомба первая часть', 'nolimit', 'mine hit hard', 'x60,000', '🧨⛏️', '#d35400', '#2d3436', 'vs20bonzgold'],
+            ['Das xBoot', 'дас бут хбут подлодка лодка торпеда субмарина', 'nolimit', 'mine hit hard', 'x55,200', '🚢🎯', '#192a56', '#27ae60', 'vs20kraken'],
+            ['Das xBoot Zwei', 'дас бут 2 подлодка лодка', 'nolimit', 'mine hard', 'x66,000', '🚢💣', '#0c2461', '#c0392b', 'vs20kraken2'],
+            ['Dead Canary', 'дед канари канарейка шахта', 'nolimit', 'mine hard', 'x65,000', '🐤🧨', '#f1c40f', '#2c3e50', 'vs20gemsbonanza'],
+            ['Mental', 'ментал психушка дурка', 'nolimit', 'hit hard', 'x66,666', '🧠🩸', '#2d3436', '#c0392b', 'vs20zeusvs'],
+            ['San Quentin xWays', 'сан квентин тюрьма зэки', 'nolimit', 'hit hard', 'x150,000', '⛓️🚨', '#d35400', '#2c3e50', 'vs20emptybank'],
+            ['San Quentin 2: Death Row', 'сан квентин 2 тюрьма', 'nolimit', 'hit hard', 'x200,000', '⛓️🔥', '#c0392b', '#111111', 'vs20emptybank'],
+            ['Tombstone RIP', 'томбстоун рип виселица ковбои', 'nolimit', 'hit hard', 'x300,000', '⚰️🤠', '#2d3436', '#e74c3c', 'vs10cowgold'],
+            ['Tombstone No Mercy', 'томбстоун ноу мерси', 'nolimit', 'hard', 'x16,480', '🔫⚰️', '#7f8c8d', '#c0392b', 'vs20wildwest'],
+            ['Deadwood RIP', 'дедвуд рип', 'nolimit', 'hard', 'x100,000', '🤠🩸', '#8e44ad', '#c0392b', 'vs20wildwest'],
+            ['Folsom Prison', 'фолсом призон тюрьма тараканы', 'nolimit', 'hard', 'x75,000', '🪳⛓️', '#2c3e50', '#e67e22', 'vs20emptybank'],
+            ['Kenneth Must Die', 'кеннет маст дай', 'nolimit', 'hard', 'x69,000', '🎭🔥', '#e84393', '#2d3436', 'vs20zeusvs'],
+            ['xWays Hoarder xSplit', 'хордер бункер радиация', 'nolimit', 'hard', 'x11,030', '☢️🧻', '#f39c12', '#27ae60', 'vs20gemsbonanza'],
+
+            // --- PRAGMATIC PLAY (ТОП И СЕРИЯ 1000) ---
+            ['Gates of Olympus', 'гейтс оф олимпус зевс дед врата олимпа', 'pragmatic', 'hit gods', 'x5,000', '⚡🧔🏼‍♂️', '#2980b9', '#8e44ad', 'vs20olympgate'],
+            ['Gates of Olympus 1000', 'гейтс оф олимпус 1000 зевс дед тысяча', 'pragmatic', 'hit 1000 gods', 'x15,000', '⚡👑', '#1e3c72', '#f39c12', 'vs20olympx'],
+            ['Sweet Bonanza', 'свит бонанза конфеты сладости бомбочки', 'pragmatic', 'hit sweet', 'x21,100', '🍭🍬', '#ff6b81', '#ff4757', 'vs20fruitsw'],
+            ['Sweet Bonanza 1000', 'свит бонанза 1000 конфеты тысяча', 'pragmatic', 'hit 1000 sweet', 'x25,000', '💣🍭', '#fd79a8', '#e84393', 'vs20fruitswx'],
+            ['Sugar Rush', 'шугар раш мишки мармелад сахар', 'pragmatic', 'hit sweet', 'x5,000', '🧸🧁', '#e056fd', '#be2edd', 'vs20sugarrush'],
+            ['Sugar Rush 1000', 'шугар раш 1000 мишки тысяча', 'pragmatic', 'hit 1000 sweet', 'x25,000', '🚀🧸', '#a29bfe', '#6c5ce7', 'vs20sugarrushx'],
+            ['Starlight Princess', 'старлайт принцесса аниме девочка', 'pragmatic', 'hit gods', 'x5,000', '👸🏼✨', '#fd79a8', '#0984e3', 'vs20starlight'],
+            ['Starlight Princess 1000', 'старлайт принцесса 1000 аниме', 'pragmatic', 'hit 1000 gods', 'x15,000', '🌟👸🏼', '#e84393', '#fdcb6e', 'vs20starlightx'],
+            ['Wisdom of Athena 1000', 'висдом оф афина 1000 сова', 'pragmatic', 'hit 1000 gods', 'x10,000', '🦉⚡', '#d35400', '#f1c40f', 'vs20wisdom'],
+            ['The Dog House', 'зе дог хаус собаки будки мопсы', 'pragmatic', 'hit dog', 'x6,750', '🐶🦴', '#f39c12', '#d35400', 'vs20doghouse'],
+            ['The Dog House Megaways', 'дог хаус мегавейс собаки будки', 'pragmatic', 'hit mega dog', 'x12,305', '🐕🏠', '#e67e22', '#2980b9', 'vswaysdogs'],
+            ['The Dog House Multihold', 'дог хаус мультихолд 4 экрана собаки', 'pragmatic', 'hit dog', 'x9,000', '🐾🐶', '#d35400', '#8e44ad', 'vs20doghousemh'],
+            ['Zeus vs Hades: Gods of War', 'зевс против аида боги войны', 'pragmatic', 'hit gods hard', 'x15,000', '⚡🔥', '#0984e3', '#d63031', 'vs20zeusvs'],
+            ['Gates of Gatot Kaca 1000', 'гатот кача 1000 индия зевс', 'pragmatic', '1000 gods', 'x15,000', '⚔️🌟', '#27ae60', '#e67e22', 'vs20gatotx'],
+            ['Big Bass Bonanza', 'биг басс бонанза рыбалка рыбак карась', 'pragmatic', 'hit bass', 'x2,100', '🐟🎣', '#00cec9', '#0984e3', 'vs10bbbonanza'],
+            ['Bigger Bass Bonanza', 'биггер басс бонанза рыбалка лодка', 'pragmatic', 'hit bass', 'x4,000', '🚤🐟', '#0984e3', '#6c5ce7', 'vs12bbb'],
+            ['Big Bass Splash', 'биг басс сплэш рыбалка джип монстр трак', 'pragmatic', 'hit bass', 'x5,000', '🛻🐟', '#e17055', '#0984e3', 'vs10bbsplash'],
+            ['Big Bass Amazon Xtreme', 'биг басс амазон экстрим рыбалка', 'pragmatic', 'bass', 'x10,000', '🌴🎣', '#2ecc71', '#16a085', 'vs10bbextreme'],
+            ['Big Bass Hold & Spinner', 'биг басс холд спиннер монеты рыбалка', 'pragmatic', 'bass', 'x10,000', '🪙🐟', '#f1c40f', '#2980b9', 'vs10bbhas'],
+            ['Big Bass Megaways', 'биг басс мегавейс рыбалка', 'pragmatic', 'bass mega', 'x4,000', '🌊🎣', '#00b894', '#0984e3', 'vswaysbbb'],
+            ['Big Bass Floats My Boat', 'биг басс флоатс май боат катер', 'pragmatic', 'bass', 'x5,000', '🛥️🎣', '#3498db', '#2c3e50', 'vs10bbfloats'],
+            ['Big Bass Vegas Double Down', 'биг басс вегас рыбалка', 'pragmatic', 'bass hit', 'x5,000', '🎰🐟', '#e84393', '#0984e3', 'vs10bbsplash'],
+            ['Fruit Party', 'фрут пати фрукты вечеринка', 'pragmatic', 'hit sweet', 'x5,000', '🍓🍍', '#fd79a8', '#fdcb6e', 'vs20fruitparty'],
+            ['Fruit Party 2', 'фрут пати 2 фрукты', 'pragmatic', 'sweet', 'x5,000', '🍇🍊', '#a29bfe', '#ff7675', 'vs20fparty2'],
+            ['Madame Destiny Megaways', 'мадам дестини мегавейс гадалка шар', 'pragmatic', 'hit mega', 'x5,000', '🔮🦉', '#6c5ce7', '#2d3436', 'vswaysmadame'],
+            ['Buffalo King Megaways', 'баффало кинг мегавейс быки бизоны', 'pragmatic', 'hit mega dog', 'x5,000', '🦬⚡', '#d35400', '#6c5ce7', 'vswaysbufking'],
+            ['The Hand of Midas', 'хэнд оф мидас рука мидаса золото', 'pragmatic', 'hit gods', 'x5,000', '✋🏼👑', '#f1c40f', '#8e44ad', 'vs20midas'],
+            ['Wild West Gold', 'вайлд вест голд ковбои звезды', 'pragmatic', 'hit', 'x10,000', '🤠⭐', '#e67e22', '#7f8c8d', 'vs20wildwest'],
+            ['Wild West Gold Megaways', 'вайлд вест голд мегавейс ковбои', 'pragmatic', 'mega', 'x5,000', '🤠🔫', '#d35400', '#2c3e50', 'vswayswwhex'],
+            ['Cleocatra', 'клеокатра кошки египет', 'pragmatic', 'dog gods', 'x5,000', '🐱👑', '#f39c12', '#2980b9', 'vs20cleocatra'],
+            ['John Hunter: Book of Tut', 'джон хантер бук оф тут книжки фараон', 'pragmatic', 'hit gods', 'x5,500', '📖🤠', '#f39c12', '#d35400', 'vs10bookoftut'],
+            ['Wolf Gold', 'вулф голд волки луна', 'pragmatic', 'hit dog', 'x2,500', '🐺🌕', '#2980b9', '#e67e22', 'vs25wolfgold'],
+            ['Release the Kraken 2', 'релиз зе кракен 2 осьминог', 'pragmatic', 'dog', 'x5,000', '🦑🌊', '#00cec9', '#0984e3', 'vs20kraken2'],
+            ['Sword of Ares', 'сворд оф арес меч ареса', 'pragmatic', 'gods', 'x10,000', '🗡️🛡️', '#c0392b', '#f39c12', 'vs20swordofares'],
+            ['Forge of Olympus', 'фордж оф олимпус кузница молот', 'pragmatic', 'gods', 'x5,000', '⚒️🔥', '#e67e22', '#c0392b', 'vs20forge']
         ];
 
-        // Дополним каталог до 185+ слотов проверенными сериями Pragmatic / Hacksaw / Nolimit
-        const EXTRA_SERIES = [
-            ['vs5aztecgems', 'Aztec Gems', 'pragmatic', 'gods', '96.5%', 'x375', '🗿💎', '#16a085', '#f39c12'],
-            ['vs9aztecgemsdx', 'Aztec Gems Deluxe', 'pragmatic', 'gods', '96.5%', 'x22,519', '🗿👑', '#2980b9', '#e67e22'],
-            ['vswaysaztecking', 'Aztec King Megaways', 'pragmatic', 'megaways gods', '96.6%', 'x20,000', '🗿⚡', '#16a085', '#e67e22'],
-            ['vs5joker', 'Master Joker', 'pragmatic', 'hit', '96.5%', 'x10,000', '🃏🎡', '#8e44ad', '#f1c40f'],
-            ['vs5super7', 'Super 7s', 'pragmatic', 'hit', '96.5%', 'x1,000', '7️⃣🍒', '#c0392b', '#f39c12'],
-            ['vs10firestrike', 'Fire Strike', 'pragmatic', 'hit', '96.5%', 'x27,000', '☄️7️⃣', '#d63031', '#e67e22'],
-            ['vs10firestrike2', 'Fire Strike 2', 'pragmatic', 'hit', '96.5%', 'x25,000', '🔥💎', '#c0392b', '#f39c12'],
-            ['vswayswwriches', 'Wild Wild Riches', 'pragmatic', 'hit', '96.8%', 'x4,608', '🍀🎩', '#27ae60', '#f1c40f'],
-            ['vs10cowgold', 'Cowboys Gold', 'pragmatic', 'hit', '96.5%', 'x6,065', '🤠💀', '#d35400', '#34495e'],
-            ['vs20emptybank', 'Empty the Bank!', 'pragmatic', 'hit', '96.5%', 'x10,000', '🦹‍♂️🏦', '#2980b9', '#8e44ad'],
-            ['vs40pirate', 'Pirate Gold', 'pragmatic', 'hit', '96.5%', 'x32,270', '🏴‍☠️🦜', '#2c3e50', '#e67e22'],
-            ['vs40pirgold', 'Pirate Gold Deluxe', 'pragmatic', 'hit', '96.5%', 'x15,000', '⚓💰', '#192a56', '#f1c40f'],
-            ['vs20santawonder', "Santa's Wonderland", 'pragmatic', 'bonanza', '96.2%', 'x7,500', '🎅🏼🎁', '#c0392b', '#2980b9'],
-            ['vs25peking', 'Peking Luck', 'pragmatic', 'hit', '96.5%', 'x180,000', '🎭🪭', '#c0392b', '#8e44ad'],
-            ['vs20davinci', "Da Vinci's Treasure", 'pragmatic', 'hit', '96.5%', 'x48,000', '🖼️🔍', '#d35400', '#8e44ad'],
-            ['vs20hercpeg', 'Hercules and Pegasus', 'pragmatic', 'gods', '96.5%', 'x2,500', '🐴🏛️', '#6c5ce7', '#00cec9'],
-            ['vs20phoenixf', 'Phoenix Forge', 'pragmatic', 'gods', '96.5%', 'x5,000', '🦅🔥', '#e74c3c', '#f1c40f'],
-            ['vs20chicken', 'Great Chicken Escape', 'pragmatic', 'animals', '96.5%', 'x5,000', '🐔🪖', '#e67e22', '#27ae60'],
-            ['vs25safari', 'Hot Safari', 'pragmatic', 'animals', '96.2%', 'x100,000', '🦁🌅', '#e67e22', '#c0392b'],
-            ['vs10crownfire', 'Crown of Fire', 'pragmatic', 'hit', '96.4%', 'x1,000', '👑🔥', '#e74c3c', '#f1c40f']
-        ];
-
-        EXTRA_SERIES.forEach((item, idx) => {
-            ALL_SLOTS.push({
-                id: item[0] + '_' + idx,
-                sym: item[0],
-                name: item[1],
-                prov: item[2],
-                cat: item[3],
-                rtp: item[4],
-                max: item[5],
-                ico: item[6],
-                c1: item[7],
-                c2: item[8]
-            });
-        });
-
-        // Генерируем дополнительные вариации VIP/1000/Dice/Xmas серий, чтобы каталог насчитывал ровно 185 уникальных карточек
-        const VARIANTS = [
-            { base: 'vs20olympgate', name: 'Gates of Olympus Dice', prov: 'pragmatic', cat: 'gods', max: 'x5,000', ico: '🎲⚡', c1: '#2980b9', c2: '#f39c12' },
-            { base: 'vs20fruitsw', name: 'Sweet Bonanza Dice', prov: 'pragmatic', cat: 'bonanza', max: 'x21,100', ico: '🎲🍭', c1: '#ff6b81', c2: '#6c5ce7' },
-            { base: 'vs20doghouse', name: 'The Dog House Dice Show', prov: 'pragmatic', cat: 'animals', max: 'x6,750', ico: '🎲🐶', c1: '#e67e22', c2: '#0984e3' },
-            { base: 'vs20sugarrush', name: 'Brick House Bonanza', prov: 'pragmatic', cat: 'bonanza animals', max: 'x10,000', ico: '🐷🧱', c1: '#e74c3c', c2: '#f39c12' },
-            { base: 'vs20fruitsw', name: 'Sweet Kingdom', prov: 'pragmatic', cat: 'bonanza', max: 'x10,000', ico: '🏰🍬', c1: '#fd79a8', c2: '#8e44ad' },
-            { base: 'vs10bbsplash', name: 'Big Bass Halloween', prov: 'pragmatic', cat: 'bass hardcore', max: 'x2,100', ico: '🎃🐟', c1: '#d35400', c2: '#2d3436' },
-            { base: 'vs10bbsplash', name: 'Big Bass Halloween 2', prov: 'pragmatic', cat: 'bass hardcore', max: 'x5,000', ico: '🧟🐟', c1: '#8e44ad', c2: '#27ae60' },
-            { base: 'vs10bbbonanza', name: 'Big Bass Day at the Races', prov: 'pragmatic', cat: 'bass animals', max: 'x10,000', ico: '🏇🐟', c1: '#27ae60', c2: '#f39c12' },
-            { base: 'hk_lebandit', name: 'Le King (Smokey VIP)', prov: 'hacksaw', cat: 'le_series hit', max: 'x15,000', ico: '🦝👑', c1: '#f1c40f', c2: '#8e44ad' },
-            { base: 'hk_lebandit', name: 'Le Hooligan', prov: 'hacksaw', cat: 'le_series', max: 'x10,000', ico: '🦝⚽', c1: '#0984e3', c2: '#d63031' },
-            { base: 'hk_lebandit', name: 'Le Sortudo', prov: 'hacksaw', cat: 'le_series', max: 'x10,000', ico: '🦝🎉', c1: '#00b894', c2: '#fdcb6e' },
-            { base: 'nl_dasxboot', name: 'Das xBoot Zwei (Stealth)', prov: 'nolimit', cat: 'fith hardcore', max: 'x66,000', ico: '🚢💣', c1: '#0c2461', c2: '#c0392b' },
-            { base: 'nl_fith3', name: 'Fire in the Hole xBomb VIP', prov: 'nolimit', cat: 'fith hardcore', max: 'x70,000', ico: '🧨👑', c1: '#c0392b', c2: '#f1c40f' }
-        ];
-
-        VARIANTS.forEach((v, i) => {
-            ALL_SLOTS.push({
-                id: 'var_' + i,
-                sym: v.base,
-                name: v.name,
-                prov: v.prov,
-                cat: v.cat,
-                rtp: '96.4%',
-                max: v.max,
-                ico: v.ico,
-                c1: v.c1,
-                c2: v.c2
-            });
-        });
-
-        // Добиваем классическими сериями Fire Hot / Shining Hot / Gems / Megaways до 185 игр
-        const FILLER_THEMES = [
-            ['Fire Hot 5', 'pragmatic', 'bonanza', '🔥🍒'], ['Fire Hot 20', 'pragmatic', 'bonanza', '🔥🍎'],
-            ['Fire Hot 40', 'pragmatic', 'bonanza', '🔥🍇'], ['Fire Hot 100', 'pragmatic', 'bonanza', '💯🔥'],
+        // Дополнительные 110 популярных слотов всех трех провайдеров (итого 185)
+        const EXTRA_NAMES = [
+            ['Gems Bonanza', 'гемс бонанза камни пирамида', 'pragmatic', 'sweet mine', '💎🏺', 'vs20gemsbonanza'],
+            ['Bonanza Gold', 'бонанза голд золото шахта динамит', 'pragmatic', 'mine sweet', '⛏️💎', 'vs20bonzgold'],
